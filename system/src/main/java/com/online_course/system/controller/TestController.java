@@ -1,7 +1,12 @@
 package com.online_course.system.controller;
 
+import com.online_course.system.domain.Test;
+import com.online_course.system.service.TestService;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * @author wenhaoli
@@ -9,8 +14,10 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 public class TestController {
+    @Resource
+    private TestService testService;
     @RequestMapping("/test")
-    public String test(){
-        return "success";
+    public List<Test> test(){
+        return testService.list();
     }
 }
