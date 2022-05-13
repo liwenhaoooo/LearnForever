@@ -1,4 +1,4 @@
-package com.online_course.system;
+package com.online_course.system.config;
 
 import org.mybatis.spring.annotation.MapperScan;
 import org.slf4j.Logger;
@@ -11,8 +11,8 @@ import org.springframework.core.env.Environment;
 
 @SpringBootApplication
 @EnableEurekaClient
-@MapperScan("com.online_course.server.mapper")
 @ComponentScan("com.online_course")
+@MapperScan("com.online_course.server.mapper")
 public class SystemApplication {
 	private static final Logger LOG = LoggerFactory.getLogger(SystemApplication.class);
 	public static void main(String[] args) {
