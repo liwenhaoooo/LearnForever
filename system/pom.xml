@@ -40,6 +40,11 @@
             <artifactId>spring-boot-devtools</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>com.online_course</groupId>
+            <artifactId>server</artifactId>
+        </dependency>
+
     </dependencies>
 
     <properties>
