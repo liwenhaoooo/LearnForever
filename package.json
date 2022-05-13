@@ -1,0 +1,19 @@
+{
+  "name": "online_course",
+  "version": "1.0.0",
+  "description": "Project",
+  "main": "index.js",
+  "directories": {
+    "doc": "doc"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com//liwenhaoooo/online_course.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
