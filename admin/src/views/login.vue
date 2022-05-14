@@ -30,14 +30,14 @@
                       <fieldset>
                         <label class="block clearfix">
 														<span class="block input-icon input-icon-right">
-															<input type="text" class="form-control" placeholder="Username" />
+															<input type="text" class="form-control" placeholder="Username"/>
 															<i class="ace-icon fa fa-user"></i>
 														</span>
                         </label>
 
                         <label class="block clearfix">
 														<span class="block input-icon input-icon-right">
-															<input type="password" class="form-control" placeholder="Password" />
+															<input type="password" class="form-control" placeholder="Password"/>
 															<i class="ace-icon fa fa-lock"></i>
 														</span>
                         </label>
@@ -46,7 +46,7 @@
 
                         <div class="clearfix">
                           <label class="inline">
-                            <input type="checkbox" class="ace" />
+                            <input type="checkbox" class="ace"/>
                             <span class="lbl"> Remember Me</span>
                           </label>
 
@@ -116,7 +116,7 @@
                       <fieldset>
                         <label class="block clearfix">
 														<span class="block input-icon input-icon-right">
-															<input type="email" class="form-control" placeholder="Email" />
+															<input type="email" class="form-control" placeholder="Email"/>
 															<i class="ace-icon fa fa-envelope"></i>
 														</span>
                         </label>
@@ -155,34 +155,34 @@
                       <fieldset>
                         <label class="block clearfix">
 														<span class="block input-icon input-icon-right">
-															<input type="email" class="form-control" placeholder="Email" />
+															<input type="email" class="form-control" placeholder="Email"/>
 															<i class="ace-icon fa fa-envelope"></i>
 														</span>
                         </label>
 
                         <label class="block clearfix">
 														<span class="block input-icon input-icon-right">
-															<input type="text" class="form-control" placeholder="Username" />
+															<input type="text" class="form-control" placeholder="Username"/>
 															<i class="ace-icon fa fa-user"></i>
 														</span>
                         </label>
 
                         <label class="block clearfix">
 														<span class="block input-icon input-icon-right">
-															<input type="password" class="form-control" placeholder="Password" />
+															<input type="password" class="form-control" placeholder="Password"/>
 															<i class="ace-icon fa fa-lock"></i>
 														</span>
                         </label>
 
                         <label class="block clearfix">
 														<span class="block input-icon input-icon-right">
-															<input type="password" class="form-control" placeholder="Repeat password" />
+															<input type="password" class="form-control" placeholder="Repeat password"/>
 															<i class="ace-icon fa fa-retweet"></i>
 														</span>
                         </label>
 
                         <label class="block">
-                          <input type="checkbox" class="ace" />
+                          <input type="checkbox" class="ace"/>
                           <span class="lbl">
 															I accept the
 															<a href="#">User Agreement</a>
@@ -218,7 +218,7 @@
             </div><!-- /.position-relative -->
 
             <div class="navbar-fixed-top align-right">
-              <br />
+              <br/>
               &nbsp;
               <a id="btn-login-dark" href="#">Dark</a>
               &nbsp;
