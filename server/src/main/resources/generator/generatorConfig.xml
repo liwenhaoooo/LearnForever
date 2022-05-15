@@ -39,6 +39,9 @@
                              targetPackage="com.online_course.server.mapper"
                              type="XMLMAPPER" />
 
-        <table tableName="test" domainObjectName="Test"/>
+
+        <!--        <table tableName="test" domainObjectName="Test"/>-->
+        <!--        每次要生成新表代码时，旧表不要删除，但要注释掉-->
+        <table tableName="chapter" domainObjectName="Chapter"/>
     </context>
 </generatorConfiguration>
