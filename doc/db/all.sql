@@ -1,10 +1,13 @@
 drop table if exists `chapter`;
 create table `chapter`(
     `id` char(8) not null comment 'id',
-    `course` char(8) comment 'course_id',
+    `course_id` char(8) comment 'course_id',
     `name` varchar(50) comment 'course_name',
     primary key (`id`)
 ) engine = innodb default  charset=utf8mb4 comment ='chapter';
+
+insert into  `chapter` (`id`, `course_id`,`name`) value (000000,'000000','chapter0');
+insert into  `chapter` (`id`, `course_id`,`name`) value (000001,'000001','chapter1');
 
 -- -------------------------------- test
 

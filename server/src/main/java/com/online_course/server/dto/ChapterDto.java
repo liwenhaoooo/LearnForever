@@ -1,9 +1,9 @@
-package com.online_course.server.domain;
+package com.online_course.server.dto;
 
-public class Chapter {
+public class ChapterDto {
     private String id;
 
-    private String courseId;
+    private String course;
 
     private String name;
 
@@ -15,12 +15,12 @@ public class Chapter {
         this.id = id;
     }
 
-    public String getCourseId() {
-        return courseId;
+    public String getCourse() {
+        return course;
     }
 
-    public void setCourseId(String courseId) {
-        this.courseId = courseId;
+    public void setCourse(String course) {
+        this.course = course;
     }
 
     public String getName() {
@@ -38,7 +38,7 @@ public class Chapter {
         sb.append(" [");
         sb.append("Hash = ").append(hashCode());
         sb.append(", id=").append(id);
-        sb.append(", courseId=").append(courseId);
+        sb.append(", course=").append(course);
         sb.append(", name=").append(name);
         sb.append("]");
         return sb.toString();
