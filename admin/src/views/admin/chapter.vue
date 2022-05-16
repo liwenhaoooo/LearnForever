@@ -71,68 +71,6 @@
         </div>
       </td>
     </tr>
-    <tr>
-      <td>123</td>
-      <td>TEST</td>
-      <td >111</td>
-      <td class="hidden-480">
-        <span class="label label-sm label-warning">Expiring</span>
-      </td>
-
-      <td>
-        <div class="hidden-sm hidden-xs btn-group">
-          <button class="btn btn-xs btn-success">
-            <i class="ace-icon fa fa-check bigger-120"></i>
-          </button>
-
-          <button class="btn btn-xs btn-info">
-            <i class="ace-icon fa fa-pencil bigger-120"></i>
-          </button>
-
-          <button class="btn btn-xs btn-danger">
-            <i class="ace-icon fa fa-trash-o bigger-120"></i>
-          </button>
-
-          <button class="btn btn-xs btn-warning">
-            <i class="ace-icon fa fa-flag bigger-120"></i>
-          </button>
-        </div>
-
-        <div class="hidden-md hidden-lg">
-          <div class="inline pos-rel">
-            <button class="btn btn-minier btn-primary dropdown-toggle" data-toggle="dropdown" data-position="auto">
-              <i class="ace-icon fa fa-cog icon-only bigger-110"></i>
-            </button>
-
-            <ul class="dropdown-menu dropdown-only-icon dropdown-yellow dropdown-menu-right dropdown-caret dropdown-close">
-              <li>
-                <a href="#" class="tooltip-info" data-rel="tooltip" title="View">
-                                  <span class="blue">
-                                    <i class="ace-icon fa fa-search-plus bigger-120"></i>
-                                  </span>
-                </a>
-              </li>
-
-              <li>
-                <a href="#" class="tooltip-success" data-rel="tooltip" title="Edit">
-                                  <span class="green">
-                                    <i class="ace-icon fa fa-pencil-square-o bigger-120"></i>
-                                  </span>
-                </a>
-              </li>
-
-              <li>
-                <a href="#" class="tooltip-error" data-rel="tooltip" title="Delete">
-                                  <span class="red">
-                                    <i class="ace-icon fa fa-trash-o bigger-120"></i>
-                                  </span>
-                </a>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </td>
-    </tr>
     </tbody>
   </table>
 </template>
@@ -152,9 +90,12 @@ export default {
   methods:{
     list() {
       let _this = this;
-      _this.$ajax.get('http://127.0.0.1:10000/business/admin/chapter/list').then((response)=>{
+      _this.$ajax.post('http://127.0.0.1:10000/business/admin/chapter/list',{
+        page:1,
+        size:1
+      }).then((response)=>{
         console.log("查询大章列表结果：", response);
-        _this.chapters = response.data;
+        _this.chapters = response.data.list;
       })
     }
   },
