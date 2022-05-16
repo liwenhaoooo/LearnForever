@@ -1,15 +1,21 @@
 <template>
   <div>
-    <p><button v-on:click="list()" class="btn btn-lg btn-white btn-default btn-round">
-      <i class="ace-icon fa fa-refresh green"></i>
-      刷新
-    </button></p>
+    <p>
+      <button v-on:click="list(1)" class="btn btn-lg btn-white btn-default btn-round">
+        <i class="ace-icon fa fa-refresh green"></i>
+        刷新
+      </button>
+    </p>
+
+    <pagination ref="pagination" v-bind:list="list" v-bind:itemCount="8"></pagination>
+
     <table id="simple-table" class="table  table-bordered table-hover">
       <thead>
       <tr>
         <th>ID</th>
         <th>名称</th>
         <th>课程ID</th>
+        <th>操作</th>
       </tr>
       </thead>
 
@@ -18,10 +24,6 @@
         <td>{{chapter.id}}</td>
         <td>{{chapter.name}}</td>
         <td>{{chapter.courseId}}</td>
-        <td class="hidden-480">
-          <span class="label label-sm label-warning">Expiring</span>
-        </td>
-
         <td>
           <div class="hidden-sm hidden-xs btn-group">
             <button class="btn btn-xs btn-success">
@@ -79,33 +81,39 @@
       </tbody>
     </table>
   </div>
-
 </template>
 
 <script>
+import Pagination from "../../components/pagination";
 export default {
+  components: {Pagination},
   name: "chapter",
-  data: function (){
-    return {chapters: []}
+  data: function() {
+    return {
+      chapters: []
+    }
   },
-  mounted:function (){
+  mounted: function() {
     let _this = this;
-    _this.list();
+    _this.$refs.pagination.size = 5;
+    _this.list(1);
     // sidebar激活样式方法一
-    //this.$parent.activeSidebar("business-chapter-sidebar");
+    // this.$parent.activeSidebar("business-chapter-sidebar");
+
   },
-  methods:{
-    list() {
+  methods: {
+    list(page) {
       let _this = this;
-      _this.$ajax.post('http://127.0.0.1:10000/business/admin/chapter/list',{
-        page:1,
-        size:1
+      _this.$ajax.post('http://127.0.0.1:10000/business/admin/chapter/list', {
+        page: page,
+        size: _this.$refs.pagination.size,
       }).then((response)=>{
         console.log("查询大章列表结果：", response);
         _this.chapters = response.data.list;
+        _this.$refs.pagination.render(page, response.data.total);
+
       })
     }
-  },
-
+  }
 }
 </script>
