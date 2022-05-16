@@ -3,7 +3,7 @@ package com.online_course.server.dto;
 public class ChapterDto {
     private String id;
 
-    private String course;
+    private String courseId;
 
     private String name;
 
@@ -15,12 +15,12 @@ public class ChapterDto {
         this.id = id;
     }
 
-    public String getCourse() {
-        return course;
+    public String getCourseId() {
+        return courseId;
     }
 
-    public void setCourse(String course) {
-        this.course = course;
+    public void setCourseId(String courseId) {
+        this.courseId = courseId;
     }
 
     public String getName() {
@@ -38,7 +38,7 @@ public class ChapterDto {
         sb.append(" [");
         sb.append("Hash = ").append(hashCode());
         sb.append(", id=").append(id);
-        sb.append(", course=").append(course);
+        sb.append(", courseId=").append(courseId);
         sb.append(", name=").append(name);
         sb.append("]");
         return sb.toString();
