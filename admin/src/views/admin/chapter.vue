@@ -155,6 +155,7 @@ export default {
         if(resp.success){
           $("#form-modal").modal("hide");
           _this.list(1);
+          toast.success("保存成功");
         }
       })
     },
@@ -176,11 +177,7 @@ export default {
             let resp = response.data;
             if(resp.success){
               _this.list(1);
-              Swal.fire(
-                  'Deleted!',
-                  'Your file has been deleted.',
-                  'success'
-              )
+             toast.success("删除成功!")
         }
       })
         }
