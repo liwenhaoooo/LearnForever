@@ -136,10 +136,12 @@ export default {
     },
     list(page) {
       let _this = this;
+      Loading.show();
       _this.$ajax.post('http://127.0.0.1:10000/business/admin/chapter/list', {
         page: page,
         size: _this.$refs.pagination.size,
       }).then((response)=>{
+        Loading.hide();
         console.log("查询大章列表结果：", response);
         let resp = response.data;
         _this.chapters = resp.content.list;
@@ -149,7 +151,9 @@ export default {
 
     save(page) {
       let _this = this;
+      Loading.show();
       _this.$ajax.post('http://127.0.0.1:10000/business/admin/chapter/save', _this.chapter).then((response)=>{
+        Loading.hide();
         console.log("保存大章列表结果：", response);
         let resp = response.data;
         if(resp.success){
@@ -162,6 +166,7 @@ export default {
 
     del(id) {
       let _this = this;
+      Loading.show();
       Swal.fire({
         title: 'Are you sure?',
         text: "You won't be able to revert this!",
@@ -173,11 +178,12 @@ export default {
       }).then((result) => {
         if (result.isConfirmed) {
           _this.$ajax.delete('http://127.0.0.1:10000/business/admin/chapter/delete/'+ id,).then((response)=>{
+            Loading.hide();
             console.log("删除大章列表结果：", response);
             let resp = response.data;
             if(resp.success){
               _this.list(1);
-             toast.success("删除成功!")
+             toast.success("删除成功")
         }
       })
         }
