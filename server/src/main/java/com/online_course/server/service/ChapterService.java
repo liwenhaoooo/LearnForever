@@ -7,6 +7,7 @@ import com.online_course.server.domain.ChapterExample;
 import com.online_course.server.dto.ChapterDto;
 import com.online_course.server.dto.PageDto;
 import com.online_course.server.mapper.ChapterMapper;
+import com.online_course.server.util.UuidUtil;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
@@ -39,6 +40,11 @@ public class ChapterService {
             chapterDtoList.add(chapterDto);
        }
         pageDto.setList(chapterDtoList);
-
+    }
+    public void save(ChapterDto chapterDto) {
+        chapterDto.setId(UuidUtil.getShortUuid());
+        Chapter chapter = new Chapter();
+        BeanUtils.copyProperties(chapterDto,chapter);
+        chapterMapper.insert(chapter);
     }
 }
