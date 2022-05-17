@@ -21,21 +21,7 @@ insert into `chapter` (id, course_id, name) values ('00000012', '00000000', '测
 insert into `chapter` (id, course_id, name) values ('00000013', '00000000', '测试大章13');
 insert into `chapter` (id, course_id, name) values ('00000014', '00000000', '测试大章14');
 insert into `chapter` (id, course_id, name) values ('00000015', '00000000', '测试大章15');
-insert into `chapter` (id, course_id, name) values ('00000016', '00000000', '测试大章16');
-insert into `chapter` (id, course_id, name) values ('00000017', '00000000', '测试大章17');
-insert into `chapter` (id, course_id, name) values ('00000018', '00000000', '测试大章18');
-insert into `chapter` (id, course_id, name) values ('00000019', '00000000', '测试大章19');
-insert into `chapter` (id, course_id, name) values ('00000020', '00000000', '测试大章20');
-insert into `chapter` (id, course_id, name) values ('00000021', '00000000', '测试大章21');
-insert into `chapter` (id, course_id, name) values ('00000022', '00000000', '测试大章22');
-insert into `chapter` (id, course_id, name) values ('00000023', '00000000', '测试大章23');
-insert into `chapter` (id, course_id, name) values ('00000024', '00000000', '测试大章24');
-insert into `chapter` (id, course_id, name) values ('00000025', '00000000', '测试大章25');
-insert into `chapter` (id, course_id, name) values ('00000026', '00000000', '测试大章26');
-insert into `chapter` (id, course_id, name) values ('00000027', '00000000', '测试大章27');
-insert into `chapter` (id, course_id, name) values ('00000028', '00000000', '测试大章28');
-insert into `chapter` (id, course_id, name) values ('00000029', '00000000', '测试大章29');
-insert into `chapter` (id, course_id, name) values ('00000030', '00000000', '测试大章30');
+
 
 -- -------------------------------- test
 
