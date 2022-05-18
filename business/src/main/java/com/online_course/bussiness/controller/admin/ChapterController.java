@@ -4,7 +4,9 @@ import com.online_course.server.domain.Chapter;
 import com.online_course.server.dto.ChapterDto;
 import com.online_course.server.dto.PageDto;
 import com.online_course.server.dto.ResponseDto;
+import com.online_course.server.exception.ValidatorException;
 import com.online_course.server.service.ChapterService;
+import com.online_course.server.util.ValidatorUtil;
 import org.slf4j.ILoggerFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,6 +23,8 @@ import java.util.List;
 @RestController
 public class ChapterController {
     private static final Logger LOG = LoggerFactory.getLogger(ChapterController.class);
+    public static final String BUSINESS_NAME = "大章";
+
     @Resource
     private ChapterService chapterService;
     @PostMapping("/list")
@@ -35,6 +39,12 @@ public class ChapterController {
     @PostMapping("/save")
     public ResponseDto save(@RequestBody ChapterDto chapterDto){
         LOG.info("chapterDto: {}",chapterDto);
+
+            // 保存校验
+            ValidatorUtil.require(chapterDto.getName(), "名称");
+            ValidatorUtil.require(chapterDto.getCourseId(), "课程ID");
+            ValidatorUtil.length(chapterDto.getCourseId(), "课程ID", 1, 8);
+
         ResponseDto responseDto = new ResponseDto();
         chapterService.save(chapterDto);
         responseDto.setContent(chapterDto);
