@@ -1,4 +1,4 @@
-package com.online_course.bussiness.controller;
+package com.online_course.business.controller;
 
 import com.online_course.server.dto.ResponseDto;
 import com.online_course.server.exception.ValidatorException;

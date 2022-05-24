@@ -17,10 +17,6 @@ import javax.annotation.Resource;
 
 import java.util.List;
 
-/**
- * @author wenhaoli
- * @date 2022/05/12 22:02
- */
 @Service
 public class ${Domain}Service {
 

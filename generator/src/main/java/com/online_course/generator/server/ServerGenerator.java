@@ -13,6 +13,7 @@ import java.util.HashMap;
 public class ServerGenerator {
 
     static String toServicePath = "server\\src\\main\\java\\com\\online_course\\server\\service\\";
+    static String toControllerPath = "business\\src\\main\\java\\com\\online_course\\business\\controller\\admin\\" ;
 
 
     public static void main(String[] args) throws IOException, TemplateException {
@@ -21,7 +22,12 @@ public class ServerGenerator {
         HashMap<String, Object> map = new HashMap<>();
         map.put("Domain",Domain);
         map.put("domain",domain);
+        //生成service
         FreemarkerUtil.initConfig("service.ftl");
         FreemarkerUtil.generator(toServicePath+Domain+"Service.java",map);
+
+        //生成controller
+        FreemarkerUtil.initConfig("controller.ftl");
+        FreemarkerUtil.generator(toControllerPath+Domain+"Controller.java",map);
     }
 }

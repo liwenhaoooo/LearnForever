@@ -1,9 +1,9 @@
-package com.online_course.bussiness.controller.admin;
+package com.online_course.business.controller.admin;
 
-import com.online_course.server.dto.ChapterDto;
+import com.online_course.server.dto.${Domain}Dto;
 import com.online_course.server.dto.PageDto;
 import com.online_course.server.dto.ResponseDto;
-import com.online_course.server.service.ChapterService;
+import com.online_course.server.service.${Domain}Service;
 import com.online_course.server.util.ValidatorUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,18 +11,14 @@ import org.springframework.web.bind.annotation.*;
 import javax.annotation.Resource;
 
 
-/**
- * @author wenhaoli
- * @date 2022/05/12 16:46
- */
-@RequestMapping("/admin/chapter")
+@RequestMapping("/admin/${domain}")
 @RestController
-public class ChapterController {
-    private static final Logger LOG = LoggerFactory.getLogger(ChapterController.class);
+public class ${Domain}Controller {
+    private static final Logger LOG = LoggerFactory.getLogger(${Domain}Controller.class);
     public static final String BUSINESS_NAME = "大章";
 
     @Resource
-    private ChapterService chapterService;
+    private ${Domain}Service ${domain}Service;
 
     /**
      * 列表查询
@@ -30,7 +26,7 @@ public class ChapterController {
     @PostMapping("/list")
     public ResponseDto list(@RequestBody PageDto pageDto){
         ResponseDto responseDto = new ResponseDto();
-        chapterService.list(pageDto);
+        ${domain}Service.list(pageDto);
         responseDto.setContent(pageDto);
         return responseDto;
     }
@@ -38,16 +34,14 @@ public class ChapterController {
      * 保存，id有值时更新，无值时新增
      */
     @PostMapping("/save")
-    public ResponseDto save(@RequestBody ChapterDto chapterDto){
+    public ResponseDto save(@RequestBody ${Domain}Dto ${domain}Dto){
 
             // 保存校验
-            ValidatorUtil.require(chapterDto.getName(), "名称");
-            ValidatorUtil.require(chapterDto.getCourseId(), "课程ID");
-            ValidatorUtil.length(chapterDto.getCourseId(), "课程ID", 1, 8);
+
 
         ResponseDto responseDto = new ResponseDto();
-        chapterService.save(chapterDto);
-        responseDto.setContent(chapterDto);
+        ${domain}Service.save(${domain}Dto);
+        responseDto.setContent(${domain}Dto);
         return responseDto;
     }
     /**
@@ -56,7 +50,7 @@ public class ChapterController {
     @DeleteMapping("/delete/{id}")
     public ResponseDto delete(@PathVariable String id){
         ResponseDto responseDto = new ResponseDto();
-        chapterService.delete(id);
+        ${domain}Service.delete(id);
         return responseDto;
     }
 }
