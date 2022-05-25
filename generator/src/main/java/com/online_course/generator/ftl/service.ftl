@@ -16,7 +16,11 @@ import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 
 import java.util.List;
-
+<#list typeSet as type>
+    <#if type=='Date'>
+        import java.util.Date;
+    </#if>
+</#list>
 @Service
 public class ${Domain}Service {
 
@@ -28,6 +32,11 @@ public class ${Domain}Service {
     public void list(PageDto pageDto) {
         PageHelper.startPage(pageDto.getPage(),pageDto.getSize());
         ${Domain}Example ${domain}Example = new ${Domain}Example();
+        <#list fieldList as field>
+            <#if field.nameHump=='sort'>
+                ${domain}Example.setOrderByClause("sort asc");
+            </#if>
+        </#list>
         List<${Domain}> ${domain}List = ${domain}Mapper.selectByExample(${domain}Example);
         PageInfo<${Domain}> pageInfo = new PageInfo<>(${domain}List);
         pageDto.setTotal(pageInfo.getTotal());
@@ -49,14 +58,27 @@ public class ${Domain}Service {
      * 新增
      */
     private void insert(${Domain} ${domain}) {
+        Date now = new Date();
+        <#list fieldList as field>
+            <#if field.nameHump=='createdAt'>
+                ${domain}.setCreatedAt(now);
+            </#if>
+            <#if field.nameHump=='updatedAt'>
+                ${domain}.setUpdatedAt(now);
+            </#if>
+        </#list>
         ${domain}.setId(UuidUtil.getShortUuid());
-
         ${domain}Mapper.insert(${domain});
     }
     /**
      * 更新
      */
     private void update(${Domain} ${domain}) {
+        <#list fieldList as field>
+            <#if field.nameHump=='updatedAt'>
+                ${domain}.setUpdatedAt(new Date());
+            </#if>
+        </#list>
         ${domain}Mapper.updateByPrimaryKey(${domain});
     }
     /**
