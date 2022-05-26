@@ -30,9 +30,13 @@
       <tr v-for="${domain} in ${domain}s">
         <#list fieldList as field>
           <#if field.nameHump!="createdAt" && field.nameHump!="updatedAt">
-        <td>{{${domain}.${field.nameHump}}}</td>
+            <#if field.enums>
+              <td>{{${field.enumsConst} | optionKV(${domain}.${field.nameHump})}}</td>
+            <#else>
+              <td>{{${domain}.${field.nameHump}}}</td>
+            </#if>
           </#if>
-      </#list>
+        </#list>
       <td>
         <div class="hidden-sm hidden-xs btn-group">
           <button v-on:click="edit(${domain})" class="btn btn-xs btn-info">
@@ -58,14 +62,25 @@
             <form class="form-horizontal">
               <#list fieldList as field>
                 <#if field.name!="id" && field.nameHump!="createdAt" && field.nameHump!="updatedAt">
-              <div class="form-group">
-                <label class="col-sm-2 control-label">${field.nameCn}</label>
-                <div class="col-sm-10">
-                  <input v-model="${domain}.${field.nameHump}" class="form-control">
-                </div>
-              </div>
+                  <#if field.enums>
+                    <div class="form-group">
+                      <label class="col-sm-2 control-label">${field.nameCn}</label>
+                      <div class="col-sm-10">
+                        <select v-model="${domain}.${field.nameHump}" class="form-control">
+                          <option v-for="o in ${field.enumsConst}" v-bind:value="o.key">{{o.value}}</option>
+                        </select>
+                      </div>
+                    </div>
+                  <#else>
+                    <div class="form-group">
+                      <label class="col-sm-2 control-label">${field.nameCn}</label>
+                      <div class="col-sm-10">
+                        <input v-model="${domain}.${field.nameHump}" class="form-control">
+                      </div>
+                    </div>
+                  </#if>
                 </#if>
-            </#list>
+              </#list>
             </form>
           </div>
           <div class="modal-footer">
@@ -86,7 +101,12 @@
     data: function() {
       return {
         ${domain}: {},
-        ${domain}s: []
+        ${domain}s: [],
+        <#list fieldList as field>
+        <#if field.enums>
+        ${field.enumsConst}: ${field.enumsConst},
+        </#if>
+        </#list>
       }
     },
     mounted: function() {
