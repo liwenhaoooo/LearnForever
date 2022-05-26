@@ -3,8 +3,10 @@ import Router from "vue-router"
 import Login from "./views/login"
 import Admin from "./views/admin"
 import Welcome from "./views/admin/welcome"
+import Course from "./views/admin/course"
 import Chapter from "./views/admin/chapter"
 import Section from "./views/admin/section"
+
 
 Vue.use(Router);
 
@@ -29,7 +31,12 @@ export default new Router({
             path:"business/chapter",
             name:"business/chapter",
             component:Chapter,
-        }, {
+        },{
+            path:"business/course",
+            name:"business/course",
+            component:Course,
+        },
+            {
             path: "business/section",
             name: "business/section",
             component: Section,

@@ -1,9 +1,7 @@
 package com.online_course.server.util;
 
-import org.springframework.util.StringUtils;
 import com.online_course.server.exception.ValidatorException;
-
-import javax.tools.Tool;
+import org.springframework.util.StringUtils;
 
 /**
  * @author wenhaoli
@@ -14,7 +12,7 @@ public class ValidatorUtil {
     /**
      * 空校验（null or ""）
      */
-    public static void require(String str, String fieldName) {
+    public static void require(Object str, String fieldName) {
         if (StringUtils.isEmpty(str)) {
             throw new ValidatorException(fieldName + "不能为空");
         }
