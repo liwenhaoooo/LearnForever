@@ -1,6 +1,10 @@
 <template>
   <div>
-    <h3>{{course.name}}</h3>
+    <h4 class="lighter">
+      <i class="ace-icon fa fa-hand-o-right icon-animated-hand-pointer blue"></i>
+      <router-link to="/business/course" class="pink"> {{course.name}} </router-link>
+    </h4>
+    <hr>
     <p>
       <router-link to="/business/course" class="btn btn-lg btn-white btn-default btn-round">
         <i class="ace-icon fa fa-arrow-left "></i>
@@ -25,7 +29,6 @@
       <tr>
         <th>ID</th>
         <th>名称</th>
-        <th>课程ID</th>
         <th>操作</th>
       </tr>
       </thead>
@@ -34,15 +37,16 @@
       <tr v-for="chapter in chapters">
         <td>{{chapter.id}}</td>
         <td>{{chapter.name}}</td>
-        <td>{{chapter.courseId}}</td>
         <td>
           <div class="hidden-sm hidden-xs btn-group">
-            <button v-on:click="edit(chapter)" class="btn btn-xs btn-info">
-              <i class="ace-icon fa fa-pencil bigger-120"></i>
-            </button>
-
-            <button v-on:click="del(chapter.id)" class="btn btn-xs btn-danger">
-              <i class="ace-icon fa fa-trash-o bigger-120"></i>
+            <button v-on:click="toSection(chapter)" class="btn btn-white btn-xs btn-info btn-round">
+              小节
+            </button>&nbsp;
+            <button v-on:click="edit(chapter)" class="btn btn-white btn-xs btn-info btn-round">
+              编辑
+            </button>&nbsp;
+            <button v-on:click="del(chapter.id)" class="btn btn-white btn-xs btn-warning btn-round">
+              删除
             </button>
           </div>
 
@@ -114,18 +118,18 @@ import Pagination from "../../components/pagination";
 export default {
   components: {Pagination},
   name: "chapter",
-  data: function() {
+  data: function () {
     return {
-      chapter:{}, //chapter变量用于绑定from表单的数据
+      chapter: {}, //chapter变量用于绑定from表单的数据
       chapters: [],
       course: {},
     }
   },
-  mounted: function() {
+  mounted: function () {
     let _this = this;
     _this.$refs.pagination.size = 5;
     let course = SessionStorage.get("course") || {};
-    if (Tool.isEmpty(course)){
+    if (Tool.isEmpty(course)) {
       _this.$router.push("/welcome");
     }
     _this.course = course;
@@ -157,7 +161,7 @@ export default {
     list(page) {
       let _this = this;
       Loading.show();
-      _this.$ajax.post(process.env.VUE_APP_SERVER+'/business/admin/chapter/list', {
+      _this.$ajax.post(process.env.VUE_APP_SERVER + '/business/admin/chapter/list', {
         page: page,
         size: _this.$refs.pagination.size,
         courseId: _this.course.id
@@ -182,7 +186,7 @@ export default {
       _this.chapter.courseId = _this.course.id;
 
       Loading.show();
-      _this.$ajax.post(process.env.VUE_APP_SERVER+'/business/admin/chapter/save', _this.chapter).then((response) => {
+      _this.$ajax.post(process.env.VUE_APP_SERVER + '/business/admin/chapter/save', _this.chapter).then((response) => {
         Loading.hide();
         let resp = response.data;
         if (resp.success) {
@@ -201,7 +205,7 @@ export default {
       let _this = this;
       Confirm.show("删除大章后不可恢复，确认删除？", function () {
         Loading.show();
-        _this.$ajax.delete(process.env.VUE_APP_SERVER+'/business/admin/chapter/delete/' + id).then((response) => {
+        _this.$ajax.delete(process.env.VUE_APP_SERVER + '/business/admin/chapter/delete/' + id).then((response) => {
           Loading.hide();
           let resp = response.data;
           if (resp.success) {
@@ -210,8 +214,17 @@ export default {
           }
         })
       });
+    },
+
+    /**
+     * 点击【小节】
+     */
+    toSection(chapter) {
+      let _this = this;
+      SessionStorage.set("chapter", chapter);
+      _this.$router.push("/business/section");
     }
-}
+  }
 }
 
 
