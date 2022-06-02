@@ -8,20 +8,25 @@ import com.online_course.server.domain.CourseExample;
 import com.online_course.server.dto.CourseDto;
 import com.online_course.server.dto.PageDto;
 import com.online_course.server.mapper.CourseMapper;
+import com.online_course.server.mapper.my.MyCourseMapper;
 import com.online_course.server.util.CopyUtil;
 import com.online_course.server.util.UuidUtil;
-
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-
+import java.util.Date;
 import java.util.List;
-        import java.util.Date;
 @Service
 public class CourseService {
 
+    private static final Logger LOG = LoggerFactory.getLogger(CourseService.class);
+
     @Resource
     private CourseMapper courseMapper;
+    @Resource
+    private MyCourseMapper myCourseMapper;
     /**
      * 列表查询
      */
@@ -68,5 +73,15 @@ public class CourseService {
      */
     public void delete(String id) {
         courseMapper.deleteByPrimaryKey(id);
+    }
+
+    /**
+     * 更新课程时长
+     * @param courseId
+     * @return
+     */
+    public void updateTime(String courseId) {
+        LOG.info("更新课程时长：{}", courseId);
+        myCourseMapper.updateTime(courseId);
     }
 }
