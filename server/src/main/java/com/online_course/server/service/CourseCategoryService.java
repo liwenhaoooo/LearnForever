@@ -12,6 +12,7 @@ import com.online_course.server.mapper.CourseCategoryMapper;
 import com.online_course.server.util.CopyUtil;
 import com.online_course.server.util.UuidUtil;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -64,6 +65,11 @@ public class CourseCategoryService {
         courseCategoryMapper.deleteByPrimaryKey(id);
     }
 
+    /**
+     * 根据某一课程，先清空课程分类，再保存课程分类
+     * @param dtoList
+     */
+    @Transactional
     public void saveBatch(String courseId, List<CategoryDto> dtoList) {
         CourseCategoryExample example = new CourseCategoryExample();
         example.createCriteria().andCourseIdEqualTo(courseId);
@@ -76,6 +82,16 @@ public class CourseCategoryService {
             courseCategory.setCategoryId(categoryDto.getId());
             insert(courseCategory);
         }
+    }
+    /**
+     * 查找课程下所有分类
+     * @param courseId
+     */
+    public List<CourseCategoryDto> listByCourse(String courseId) {
+        CourseCategoryExample example = new CourseCategoryExample();
+        example.createCriteria().andCourseIdEqualTo(courseId);
+        List<CourseCategory> courseCategoryList = courseCategoryMapper.selectByExample(example);
+        return CopyUtil.copyList(courseCategoryList, CourseCategoryDto.class);
     }
 
 }
