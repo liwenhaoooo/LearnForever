@@ -1,11 +1,20 @@
+# 课程分类
+drop table if exists `course_category`;
+create table `course_category` (
+   `id` char(8) not null default '' comment 'id',
+   `course_id` char(8) comment '课程|course.id',
+   `category_id` char(8) comment '分类|course.id',
+   primary key (`id`)
+) engine=innodb default charset=utf8mb4 comment='课程分类';
+
 -- 分类
 drop table if exists `category`;
 create table `category` (
-                            `id` char(8) not null default '' comment 'id',
-                            `parent` char(8) not null default '' comment '父id',
-                            `name` varchar(50) not null comment '名称',
-                            `sort` int comment '顺序',
-                            primary key (`id`)
+    `id` char(8) not null default '' comment 'id',
+    `parent` char(8) not null default '' comment '父id',
+    `name` varchar(50) not null comment '名称',
+    `sort` int comment '顺序',
+    primary key (`id`)
 ) engine=innodb default charset=utf8mb4 comment='分类';
 
 insert into `category` (id, parent, name, sort) values ('00000100', '00000000', '前端技术', 100);
