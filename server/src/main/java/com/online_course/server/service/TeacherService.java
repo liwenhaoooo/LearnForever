@@ -5,22 +5,31 @@ import com.github.pagehelper.PageInfo;
 import com.github.pagehelper.util.StringUtil;
 import com.online_course.server.domain.Teacher;
 import com.online_course.server.domain.TeacherExample;
-import com.online_course.server.dto.TeacherDto;
 import com.online_course.server.dto.PageDto;
+import com.online_course.server.dto.TeacherDto;
 import com.online_course.server.mapper.TeacherMapper;
 import com.online_course.server.util.CopyUtil;
 import com.online_course.server.util.UuidUtil;
-
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-
 import java.util.List;
 @Service
 public class TeacherService {
 
     @Resource
     private TeacherMapper teacherMapper;
+
+
+    /**
+     * 列表查询
+     */
+    public List<TeacherDto> all() {
+        TeacherExample teacherExample = new TeacherExample();
+        List<Teacher> teacherList = teacherMapper.selectByExample(teacherExample);
+        return CopyUtil.copyList(teacherList, TeacherDto.class);
+    }
+    
     /**
      * 列表查询
      */
