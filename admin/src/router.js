@@ -1,13 +1,13 @@
 import Vue from "vue"
 import Router from "vue-router"
-import Login from "./views/login"
-import Admin from "./views/admin"
-import Welcome from "./views/admin/welcome"
-import Teacher from "./views/admin/teacher"
-import Category from "./views/admin/category"
-import Course from "./views/admin/course"
-import Chapter from "./views/admin/chapter"
-import Section from "./views/admin/section"
+import Login from "./views/login.vue"
+import Admin from "./views/admin.vue"
+import Welcome from "./views/admin/welcome.vue"
+import Category from "./views/admin/category.vue"
+import Course from "./views/admin/course.vue"
+import Chapter from "./views/admin/chapter.vue"
+import Section from "./views/admin/section.vue"
+import Teacher from "./views/admin/teacher.vue"
 
 
 Vue.use(Router);
@@ -46,8 +46,7 @@ export default new Router({
             path: "business/section",
             name: "business/section",
             component: Section,
-        },
-            {
+        }, {
             path: "business/teacher",
             name: "business/teacher",
             component: Teacher,
