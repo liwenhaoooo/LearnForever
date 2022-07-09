@@ -86,7 +86,16 @@
               <div class="form-group">
                 <label class="col-sm-2 control-label">视频</label>
                 <div class="col-sm-10">
-                  <input v-model="section.video" class="form-control">
+                  <file v-bind:id="'video-upload'"
+                        v-bind:text="'上传视频'"
+                        v-bind:suffixs="['mp4']"
+                        v-bind:use="FILE_USE.COURSE.key"
+                        v-bind:after-upload="afterUpload"></file>
+                  <div v-show="section.video" class="row">
+                    <div class="col-md-9">
+                      <video v-bind:src="section.video" controls="controls"></video>
+                    </div>
+                  </div>
                 </div>
               </div>
               <div class="form-group">
@@ -123,14 +132,16 @@
 
 <script>
   import Pagination from "../../components/pagination";
+  import File from "../../components/file";
   export default {
-    components: {Pagination},
+    components: {Pagination, File},
     name: "business-section",
     data: function() {
       return {
         section: {},
         sections: [],
         SECTION_CHARGE: SECTION_CHARGE,
+        FILE_USE: FILE_USE,
         course: {},
         chapter: {},
       }
@@ -180,7 +191,7 @@
           size: _this.$refs.pagination.size,
           courseId: _this.course.id,
           chapterId: _this.chapter.id
-        }).then((response)=>{
+        }).then((response) => {
           Loading.hide();
           let resp = response.data;
           _this.sections = resp.content.list;
@@ -197,9 +208,9 @@
 
         // 保存校验
         if (1 != 1
-                || !Validator.require(_this.section.title, "标题")
-                || !Validator.length(_this.section.title, "标题", 1, 50)
-                || !Validator.length(_this.section.video, "视频", 1, 200)
+            || !Validator.require(_this.section.title, "标题")
+            || !Validator.length(_this.section.title, "标题", 1, 50)
+            || !Validator.length(_this.section.video, "视频", 1, 200)
         ) {
           return;
         }
@@ -208,7 +219,7 @@
         _this.section.chapterId = _this.chapter.id;
 
         Loading.show();
-        _this.$ajax.post(process.env.VUE_APP_SERVER + '/business/admin/section/save', _this.section).then((response)=>{
+        _this.$ajax.post(process.env.VUE_APP_SERVER + '/business/admin/section/save', _this.section).then((response) => {
           Loading.hide();
           let resp = response.data;
           if (resp.success) {
@@ -228,7 +239,7 @@
         let _this = this;
         Confirm.show("删除小节后不可恢复，确认删除？", function () {
           Loading.show();
-          _this.$ajax.delete(process.env.VUE_APP_SERVER + '/business/admin/section/delete/' + id).then((response)=>{
+          _this.$ajax.delete(process.env.VUE_APP_SERVER + '/business/admin/section/delete/' + id).then((response) => {
             Loading.hide();
             let resp = response.data;
             if (resp.success) {
@@ -237,7 +248,21 @@
             }
           })
         });
+      },
+
+      afterUpload(resp) {
+        let _this = this;
+        let video = resp.content.path;
+        _this.section.video = video;
       }
     }
   }
 </script>
+
+<style scoped>
+video {
+  width: 100%;
+  height: auto;
+  margin-top: 10px;
+}
+</style>
