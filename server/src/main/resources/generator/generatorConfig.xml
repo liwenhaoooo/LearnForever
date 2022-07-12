@@ -41,16 +41,16 @@
                              type="XMLMAPPER" />
 
 
-<!--   <table tableName="test" domainObjectName="Test"/>-->
-<!--    每次要生成新表代码时，旧表不要删除，但要注释掉&ndash;&gt;-->
-<!--    <table tableName="chapter" domainObjectName="Chapter"/>-->
-<!--   <table tableName="section" domainObjectName="Section"/>-->
-<!--  <table tableName="course" domainObjectName="Course"/>-->
-<!--  <table tableName="course_content" domainObjectName="CourseContent"/>-->
-        <table tableName="course_content_file" domainObjectName="CourseContentFile"/>
-<!--    <table tableName="category" domainObjectName="Category"/>-->
-<!--    <table tableName="course_category" domainObjectName="CourseCategory"/>-->
-<!--     <table tableName="teacher" domainObjectName="Teacher"/>-->
-<!--     <table tableName="file" domainObjectName="File"/>-->
+<!--           <table tableName="test" domainObjectName="Test"/>-->
+<!--            每次要生成新表代码时，旧表不要删除，但要注释掉&ndash;&gt;-->
+<!--           <table tableName="chapter" domainObjectName="Chapter"/>-->
+<!--           <table tableName="section" domainObjectName="Section"/>-->
+<!--           <table tableName="course" domainObjectName="Course"/>-->
+<!--           <table tableName="course_content" domainObjectName="CourseContent"/>-->
+<!--           <table tableName="course_content_file" domainObjectName="CourseContentFile"/>-->
+<!--           <table tableName="category" domainObjectName="Category"/>-->
+<!--           <table tableName="course_category" domainObjectName="CourseCategory"/>-->
+<!--           <table tableName="teacher" domainObjectName="Teacher"/>-->
+           <table tableName="file" domainObjectName="File"/>
     </context>
 </generatorConfiguration>
