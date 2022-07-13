@@ -83,7 +83,6 @@ public class VodUtil {
         String bucketName = uploadAddress.getString("Bucket");
         String objectName = uploadAddress.getString("FileName");
         File file = new File(localFile);
-        ossClient.putObject(bucketName, objectName, file);
         // 单文件上传
         ossClient.putObject(bucketName, objectName, file);
 
