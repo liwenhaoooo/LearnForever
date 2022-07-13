@@ -113,10 +113,10 @@ alter table `course` add column (`teacher_id` char(8) comment '讲师|teacher.id
 -- 大章
 drop table if exists `chapter`;
 create table `chapter` (
-       `id` char(8) not null comment 'id',
-       `course_id` char(8) comment '课程id',
-       `name` varchar(50) comment '名称',
-       primary key (`id`)
+   `id` char(8) not null comment 'id',
+   `course_id` char(8) comment '课程id',
+   `name` varchar(50) comment '名称',
+   primary key (`id`)
 ) engine=innodb default charset=utf8mb4 comment='大章';
 
 insert into `chapter` (id, course_id, name) values ('00000001', '00000001', '测试大章01');
@@ -150,9 +150,7 @@ CREATE TABLE `section` (
    `updated_at` DATETIME(3) COMMENT '修改时间',
    PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='小节';
-ALTER TABLE `section` ADD COLUMN (
-    `vod` CHAR(32) COMMENT 'VOD|阿里云VOD'
-    );
+alter table `section` add column (`vod` char(32) comment 'vod|阿里云vod');
 
 INSERT INTO `section` (id, title, course_id, chapter_id, video, time, charge, sort, created_at, updated_at)
 VALUES ('00000001', '测试小节01', '00000001', '00000000', '', 500, 'F', 1, now(), now());
@@ -177,6 +175,7 @@ alter table `file` add column (`shard_size` int comment '分片大小|B');
 alter table `file` add column (`shard_total` int comment '分片总数');
 alter table `file` add column (`key` varchar(32) comment '文件标识');
 alter table `file` add unique key key_unique (`key`);
+alter table `file` add column (`vod` char(32) comment 'vod|阿里云vod');
 
 
 -- 课程内容文件
