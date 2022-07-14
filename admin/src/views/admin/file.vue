@@ -18,6 +18,7 @@
             <th>后缀</th>
             <th>大小</th>
             <th>用途</th>
+            <th>Download link</th>
       </tr>
       </thead>
 
@@ -29,6 +30,9 @@
               <td>{{file.suffix}}</td>
               <td>{{file.size | formatFileSize}}</td>
               <td>{{FILE_USE | optionKV(file.use)}}</td>
+              <td>
+                <a :href="getHref(file.path )" style="width:100%;margin-top: 5px;" name="mylink" class="my_link_button" download="111" >Download</a>
+              </td>
       </tr>
       </tbody>
     </table>
@@ -57,6 +61,18 @@
     },
     methods: {
       /**
+       * 获取下载文件的url
+       */
+      getHref:function(val){
+        return 'https://learn-forever.oss-eu-west-1.aliyuncs.com/'+val+'?response-content-type=application/octet-stream'
+      },
+      /**
+       * 获取下载文件的url
+       */
+      getFileName:function(val){
+        return val
+      },
+      /**
        * 列表查询
        */
       list(page) {
@@ -76,3 +92,36 @@
     }
   }
 </script>
+<style>
+.my_link_button {
+  display: block;
+  width: 100px;
+  height: 30px;
+  background: #FFFAFA;
+  margin-top: 20px;
+  font-size: 8px;
+  text-decoration:none;
+  text-align: center;
+  line-height: 28px;
+  color:black;
+}
+
+.my_link_button_select {
+  display: block;
+  width: 100px;
+  height: 30px;
+  background: #0081c2;
+  margin-top: 20px;
+  font-size: 8px;
+  text-decoration:none;
+  text-align: center;
+  line-height: 28px;
+  color:white;
+}
+
+.my_link_button:hover {
+  text-decoration: none;
+  color: white;
+  background: #0081c2
+}
+</style>
