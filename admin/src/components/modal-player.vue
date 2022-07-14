@@ -1,6 +1,6 @@
 <template>
-  <div id="player-modal" class="modal" tabindex="-1" role="dialog">
-    <div class="modal-dialog" role="document">
+  <div id="player-modal" class="modal" tabindex="-1" role="dialog" >
+    <div class="modal-dialog modal-lg" role="document">
       <div class="modal-content">
         <div class="modal-body">
           <player v-bind:player-id="'modal-player-div'"
@@ -30,7 +30,8 @@ export default {
       let _this = this;
       _this.$refs.player.playVod(vod);
       $("#player-modal").modal("show");
-    }
+    },
+
   }
 }
 </script>

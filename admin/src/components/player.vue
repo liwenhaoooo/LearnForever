@@ -57,21 +57,25 @@ export default {
           $("#" + _this.playerId).append("<div class=\"prism-player\" id=\"" + _this.playerId + "-player\"></div>");
           _this.aliPlayer = new Aliplayer({
             id: _this.playerId + '-player',
-            width: '100%',
-            autoplay: false,
+            width: '100%', //容器的大小
+            autoplay: true,
             vid: vod,
             playauth: resp.content,
             cover: 'http://liveroom-img.oss-cn-qingdao.aliyuncs.com/logo.png',
             encryptType:1, //当播放私有加密流时需要设置。
           },function(player){
             console.log('播放器创建好了。')
+            player.on('ready',function(){
+              player.fullscreenService.requestFullScreen()
+            })
+
           });
         } else {
           Toast.warning('播放错误。')
         }
-      })
+      });
+    },
 
-    }
   }
 }
 </script>
