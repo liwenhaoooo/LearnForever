@@ -518,7 +518,9 @@ export default {
     //console.log("admin");
     // sidebar激活样式方法二
     _this.activeSidebar(_this.$route.name.replace("/", "-") + "-sidebar");
-  }, watch: {
+
+    $.getScript('/ace-master/assets/js/ace.min.js');
+    }, watch: {
     $route: {
       handler:function(val, oldVal){
         // sidebar激活样式方法二
