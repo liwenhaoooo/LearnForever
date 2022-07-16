@@ -280,10 +280,6 @@
             <li class="light-blue dropdown-modal">
               <a data-toggle="dropdown" href="#" class="dropdown-toggle">
                 <img class="nav-user-photo" src="../../public/ace-master/assets/images/avatars/user.jpg" alt="Jason's Photo"/>
-                <span class="user-info">
-									<small>Welcome,</small>
-									Jason
-								</span>
 
                 <i class="ace-icon fa fa-caret-down"></i>
               </a>
@@ -321,7 +317,7 @@
     <div class="main-container ace-save-state" id="main-container">
 
 
-      <div id="sidebar" class="sidebar                  responsive                    ace-save-state">
+      <div id="sidebar" class="sidebar responsive ace-save-state">
         <div class="sidebar-shortcuts" id="sidebar-shortcuts">
           <div class="sidebar-shortcuts-large" id="sidebar-shortcuts-large">
             <button class="btn btn-success">
@@ -356,9 +352,8 @@
           <li class="" id="welcome-sidebar">
             <router-link to="/welcome">
               <i class="menu-icon fa fa-tachometer"></i>
-              <span class="menu-text"> Dashboard </span>
+              <span class="menu-text"> 欢迎：{{loginUser.name}} </span>
             </router-link>
-
             <b class="arrow"></b>
           </li>
 
@@ -511,6 +506,11 @@
 <script>
 export default {
   name: "admin",
+  data: function() {
+    return {
+      loginUser: {},
+    }
+  },
   mounted: function () {
     let _this = this;
     $("body").removeClass("login-layout light-login");
@@ -520,6 +520,7 @@ export default {
     _this.activeSidebar(_this.$route.name.replace("/", "-") + "-sidebar");
 
     $.getScript('/ace-master/assets/js/ace.min.js');
+    _this.loginUser = Tool.getLoginUser();
     }, watch: {
     $route: {
       handler:function(val, oldVal){
