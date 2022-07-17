@@ -1,13 +1,14 @@
 package com.online_course.system.controller.admin;
 
-import com.online_course.server.dto.ResourceDto;
 import com.online_course.server.dto.PageDto;
+import com.online_course.server.dto.ResourceDto;
 import com.online_course.server.dto.ResponseDto;
 import com.online_course.server.service.ResourceService;
 import com.online_course.server.util.ValidatorUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.*;
+
 import javax.annotation.Resource;
 
 
@@ -34,13 +35,12 @@ public class ResourceController {
      * 保存，id有值时更新，无值时新增
      */
     @PostMapping("/save")
-    public ResponseDto save(@RequestBody ResourceDto resourceDto){
-
-            // 保存校验
-                        ValidatorUtil.require(resourceDto.getName(), "名称");
-                        ValidatorUtil.length(resourceDto.getName(), "名称", 1, 100);
-                        ValidatorUtil.length(resourceDto.getPage(), "页面", 1, 50);
-                        ValidatorUtil.length(resourceDto.getRequest(), "请求", 1, 200);
+    public ResponseDto save(@RequestBody ResourceDto resourceDto) {
+        // 保存校验
+        ValidatorUtil.require(resourceDto.getName(), "名称");
+        ValidatorUtil.length(resourceDto.getName(), "名称", 1, 100);
+        ValidatorUtil.length(resourceDto.getPage(), "页面", 1, 50);
+        ValidatorUtil.length(resourceDto.getRequest(), "请求", 1, 200);
 
         ResponseDto responseDto = new ResponseDto();
         resourceService.save(resourceDto);
