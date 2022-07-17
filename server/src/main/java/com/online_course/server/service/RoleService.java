@@ -2,14 +2,12 @@ package com.online_course.server.service;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import com.online_course.server.domain.Role;
-import com.online_course.server.domain.RoleExample;
-import com.online_course.server.domain.RoleResource;
-import com.online_course.server.domain.RoleResourceExample;
+import com.online_course.server.domain.*;
 import com.online_course.server.dto.PageDto;
 import com.online_course.server.dto.RoleDto;
 import com.online_course.server.mapper.RoleMapper;
 import com.online_course.server.mapper.RoleResourceMapper;
+import com.online_course.server.mapper.RoleUserMapper;
 import com.online_course.server.util.CopyUtil;
 import com.online_course.server.util.UuidUtil;
 import org.springframework.stereotype.Service;
@@ -27,6 +25,9 @@ public class RoleService {
 
     @Resource
     private RoleResourceMapper roleResourceMapper;
+
+    @Resource
+    private RoleUserMapper roleUserMapper;
 
     /**
      * 列表查询
@@ -110,5 +111,25 @@ public class RoleService {
             resourceIdList.add(roleResourceList.get(i).getResourceId());
         }
         return resourceIdList;
+    }
+    /**
+     * 按角色保存用户
+     */
+    public void saveUser(RoleDto roleDto) {
+        String roleId = roleDto.getId();
+        List<String> userIdList = roleDto.getUserIds();
+        // 清空库中所有的当前角色下的记录
+        RoleUserExample example = new RoleUserExample();
+        example.createCriteria().andRoleIdEqualTo(roleId);
+        roleUserMapper.deleteByExample(example);
+
+        // 保存角色用户
+        for (int i = 0; i < userIdList.size(); i++) {
+            RoleUser roleUser = new RoleUser();
+            roleUser.setId(UuidUtil.getShortUuid());
+            roleUser.setRoleId(roleId);
+            roleUser.setUserId(userIdList.get(i));
+            roleUserMapper.insert(roleUser);
+        }
     }
 }
