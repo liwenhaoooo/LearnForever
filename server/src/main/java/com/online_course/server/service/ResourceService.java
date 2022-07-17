@@ -1,15 +1,14 @@
 package com.online_course.server.service;
 
 import com.alibaba.fastjson.JSON;
-import com.github.pagehelper.PageHelper;
-import com.github.pagehelper.PageInfo;
 import com.online_course.server.domain.Resource;
 import com.online_course.server.domain.ResourceExample;
 import com.online_course.server.dto.PageDto;
 import com.online_course.server.dto.ResourceDto;
 import com.online_course.server.mapper.ResourceMapper;
 import com.online_course.server.util.CopyUtil;
-import com.online_course.server.util.UuidUtil;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -57,7 +56,6 @@ public class ResourceService {
      * 新增，ID是自定义好的，不是自动生成的
      */
     private void insert(Resource resource) {
-        resource.setId(UuidUtil.getShortUuid());
         resourceMapper.insert(resource);
     }
 
@@ -113,6 +111,7 @@ public class ResourceService {
             }
         }
     }
+
     /**
      * 按约定将列表转成树
      * 要求：ID要正序排列
