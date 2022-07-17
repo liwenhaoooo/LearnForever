@@ -1,17 +1,20 @@
 package com.online_course.server.service;
 
-import com.github.pagehelper.PageHelper;
-import com.github.pagehelper.PageInfo;
+import com.alibaba.fastjson.JSON;
 import com.online_course.server.domain.User;
 import com.online_course.server.domain.UserExample;
 import com.online_course.server.dto.LoginUserDto;
 import com.online_course.server.dto.PageDto;
+import com.online_course.server.dto.ResourceDto;
 import com.online_course.server.dto.UserDto;
 import com.online_course.server.exception.BusinessException;
 import com.online_course.server.exception.BusinessExceptionCode;
 import com.online_course.server.mapper.UserMapper;
+import com.online_course.server.mapper.my.MyUserMapper;
 import com.online_course.server.util.CopyUtil;
 import com.online_course.server.util.UuidUtil;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -19,15 +22,19 @@ import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 
 import javax.annotation.Resource;
+import java.util.HashSet;
 import java.util.List;
+
 @Service
 public class UserService {
+
     private static final Logger LOG = LoggerFactory.getLogger(UserService.class);
-
-
 
     @Resource
     private UserMapper userMapper;
+
+    @Resource
+    private MyUserMapper myUserMapper;
 
     /**
      * 列表查询
@@ -96,6 +103,7 @@ public class UserService {
             return userList.get(0);
         }
     }
+
     /**
      * 重置密码
      * @param userDto
@@ -119,11 +127,39 @@ public class UserService {
         } else {
             if (user.getPassword().equals(userDto.getPassword())) {
                 // 登录成功
-                return CopyUtil.copy(user, LoginUserDto.class);
+                LoginUserDto loginUserDto = CopyUtil.copy(user, LoginUserDto.class);
+                // 为登录用户读取权限
+                setAuth(loginUserDto);
+                return loginUserDto;
             } else {
                 LOG.info("密码不对, 输入密码：{}, 数据库密码：{}", userDto.getPassword(), user.getPassword());
                 throw new BusinessException(BusinessExceptionCode.LOGIN_ERROR);
             }
         }
+    }
+
+
+
+    /**
+     * 为登录用户读取权限
+     */
+    private void setAuth(LoginUserDto loginUserDto) {
+        List<ResourceDto> resourceDtoList = myUserMapper.findResources(loginUserDto.getId());
+        loginUserDto.setResources(resourceDtoList);
+
+        // 整理所有有权限的请求，用于接口拦截
+        HashSet<String> requestSet = new HashSet<>();
+        if (!CollectionUtils.isEmpty(resourceDtoList)) {
+            for (int i = 0, l = resourceDtoList.size(); i < l; i++) {
+                ResourceDto resourceDto = resourceDtoList.get(i);
+                String arrayString = resourceDto.getRequest();
+                List<String> requestList = JSON.parseArray(arrayString, String.class);
+                if (!CollectionUtils.isEmpty(requestList)) {
+                    requestSet.addAll(requestList);
+                }
+            }
+        }
+        LOG.info("有权限的请求：{}", requestSet);
+        loginUserDto.setRequests(requestSet);
     }
 }
