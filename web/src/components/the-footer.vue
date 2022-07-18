@@ -4,9 +4,8 @@
       <p class="float-right">
         <a href="#">Back to top</a>
       </p>
-      <p>Album example is &copy; Bootstrap, but please download and customize it for yourself!</p>
-      <p>New to Bootstrap? <a href="https://v4.bootcss.com/">Visit the homepage</a> or read our <a href="/docs/getting-started/introduction/">getting started guide</a>.</p>
-    </div>
+      <p>Welcome to Learn_Forever online video course system, a programmer's dream factory dedicated to the promotion of full-stack technologies</p>
+      <p>2022&nbsp;Learn_Forever.com</p></div>
   </footer>
 </template>
 
