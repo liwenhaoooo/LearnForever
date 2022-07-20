@@ -99,7 +99,7 @@
                 <label class="col-sm-2 control-label">Cover</label>
                 <div class="col-sm-10">
                   <big-file v-bind:input-id="'image-upload'"
-                        v-bind:text="'上传封面'"
+                        v-bind:text="'Upload Cover'"
                         v-bind:suffixs="['jpg', 'jpeg', 'png']"
                         v-bind:use="FILE_USE.COURSE.key"
                         v-bind:after-upload="afterUpload"></big-file>
