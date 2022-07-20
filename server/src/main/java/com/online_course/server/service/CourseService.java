@@ -6,10 +6,7 @@ import com.github.pagehelper.util.StringUtil;
 import com.online_course.server.domain.Course;
 import com.online_course.server.domain.CourseContent;
 import com.online_course.server.domain.CourseExample;
-import com.online_course.server.dto.CourseContentDto;
-import com.online_course.server.dto.CourseDto;
-import com.online_course.server.dto.PageDto;
-import com.online_course.server.dto.SortDto;
+import com.online_course.server.dto.*;
 import com.online_course.server.enums.CourseStatusEnum;
 import com.online_course.server.mapper.CourseContentMapper;
 import com.online_course.server.mapper.CourseMapper;
@@ -20,6 +17,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
 
 import javax.annotation.Resource;
 import java.util.Date;
@@ -40,10 +38,14 @@ public class CourseService {
     /**
      * 列表查询
      */
-    public void list(PageDto pageDto) {
-        PageHelper.startPage(pageDto.getPage(),pageDto.getSize());
+    public void list(CoursePageDto pageDto) {
+        PageHelper.startPage(pageDto.getPage(), pageDto.getSize());
         CourseExample courseExample = new CourseExample();
-                courseExample.setOrderByClause("sort asc");
+        CourseExample.Criteria criteria = courseExample.createCriteria();
+        if (!StringUtils.isEmpty(pageDto.getStatus())) {
+            criteria.andStatusEqualTo(pageDto.getStatus());
+        }
+        courseExample.setOrderByClause("sort asc");
         List<Course> courseList = courseMapper.selectByExample(courseExample);
         PageInfo<Course> pageInfo = new PageInfo<>(courseList);
         pageDto.setTotal(pageInfo.getTotal());
