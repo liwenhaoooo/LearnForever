@@ -8,17 +8,17 @@
     <p>
       <router-link to="/business/course" class="btn btn-lg btn-white btn-default btn-round">
         <i class="ace-icon fa fa-arrow-left "></i>
-        返回课程
+        Back
       </router-link>
       &nbsp;
       <button v-on:click="add()" class="btn btn-lg btn-white btn-default btn-round">
         <i class="ace-icon fa fa-edit "></i>
-        新增
+        New
       </button>
       &nbsp;
       <button v-on:click="list(1)" class="btn btn-lg btn-white btn-default btn-round">
         <i class="ace-icon fa fa-refresh green"></i>
-        刷新
+        Refresh
       </button>
     </p>
 
@@ -28,8 +28,8 @@
       <thead>
       <tr>
         <th>ID</th>
-        <th>名称</th>
-        <th>操作</th>
+        <th>Name</th>
+        <th></th>
       </tr>
       </thead>
 
@@ -40,13 +40,13 @@
         <td>
           <div class="hidden-sm hidden-xs btn-group">
             <button v-on:click="toSection(chapter)" class="btn btn-white btn-xs btn-info btn-round">
-              小节
+              Subsection
             </button>&nbsp;
             <button v-on:click="edit(chapter)" class="btn btn-white btn-xs btn-info btn-round">
-              编辑
+              Edit
             </button>&nbsp;
             <button v-on:click="del(chapter.id)" class="btn btn-white btn-xs btn-warning btn-round">
-              删除
+              Delete
             </button>
           </div>
 
@@ -82,20 +82,20 @@
         <div class="modal-content">
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            <h4 class="modal-title">表单</h4>
+            <h4 class="modal-title">Form</h4>
           </div>
           <div class="modal-body">
             <form class="form-horizontal">
               <div class="form-group">
-                <label  class="col-sm-2 control-label">名称</label>
+                <label  class="col-sm-2 control-label">Chapter Name</label>
                 <div class="col-sm-10">
-                  <input v-model="chapter.name" class="form-control"  placeholder="名称">
+                  <input v-model="chapter.name" class="form-control"  placeholder="Chapter Name">
                 </div>
               </div>
             </form>
             <form class="form-horizontal">
               <div class="form-group">
-                <label  class="col-sm-2 control-label">课程</label>
+                <label  class="col-sm-2 control-label">Course Name</label>
                 <div class="col-sm-10">
                   <p class="form-control-static">{{course.name}}</p>
                 </div>
@@ -104,8 +104,8 @@
           </div>
 
           <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-            <button v-on:click="save" type="button" class="btn btn-primary">保存</button>
+            <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+            <button v-on:click="save" type="button" class="btn btn-primary">Save</button>
           </div>
         </div><!-- /.modal-content -->
       </div><!-- /.modal-dialog -->
@@ -179,8 +179,8 @@ export default {
       let _this = this;
 
       // 保存校验
-      if (!Validator.require(_this.chapter.name, "名称")
-          || !Validator.length(_this.chapter.courseId, "课程ID", 1, 8)) {
+      if (!Validator.require(_this.chapter.name, "Chapter Name")
+          || !Validator.length(_this.chapter.courseId, "Course ID", 1, 8)) {
         return;
       }
       _this.chapter.courseId = _this.course.id;
@@ -192,7 +192,7 @@ export default {
         if (resp.success) {
           $("#form-modal").modal("hide");
           _this.list(1);
-          Toast.success("保存成功");
+          Toast.success("Saved successfully!");
         } else {
           Toast.warning(resp.message);
         }
@@ -203,14 +203,14 @@ export default {
      */
     del(id) {
       let _this = this;
-      Confirm.show("删除大章后不可恢复，确认删除？", function () {
+      Confirm.show("After deletion, it cannot be recovered. Confirm deletion?", function () {
         Loading.show();
         _this.$ajax.delete(process.env.VUE_APP_SERVER + '/business/admin/chapter/delete/' + id).then((response) => {
           Loading.hide();
           let resp = response.data;
           if (resp.success) {
             _this.list(1);
-            Toast.success("删除成功！");
+            Toast.success("Deleted successfully!");
           }
         })
       });

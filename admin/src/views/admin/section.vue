@@ -8,14 +8,19 @@
     </h4>
     <hr>
     <p>
-      <button v-on:click="add()" class="btn btn-white btn-default btn-round">
+      <router-link to="/business/chapter" class="btn btn-lg btn-white btn-default btn-round">
+        <i class="ace-icon fa fa-arrow-left "></i>
+        Back
+      </router-link>
+      &nbsp;
+      <button v-on:click="add()" class="btn btn-lg btn-white btn-default btn-round">
         <i class="ace-icon fa fa-edit"></i>
-        新增
+        New
       </button>
       &nbsp;
-      <button v-on:click="list(1)" class="btn btn-white btn-default btn-round">
-        <i class="ace-icon fa fa-refresh"></i>
-        刷新
+      <button v-on:click="list(1)" class="btn btn-lg btn-white btn-default btn-round">
+        <i class="ace-icon fa fa-refresh green"></i>
+        Refresh
       </button>
     </p>
 
@@ -25,12 +30,12 @@
       <thead>
       <tr>
             <th>ID</th>
-            <th>标题</th>
+            <th>Title</th>
             <th>VOD</th>
-            <th>时长</th>
-            <th>收费</th>
-            <th>顺序</th>
-        <th>操作</th>
+            <th>Duration</th>
+            <th>Charge Or Not</th>
+            <th>Sort</th>
+        <th></th>
       </tr>
       </thead>
 
@@ -64,33 +69,33 @@
         <div class="modal-content">
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            <h4 class="modal-title">表单</h4>
+            <h4 class="modal-title">Form</h4>
           </div>
           <div class="modal-body">
             <form class="form-horizontal">
               <div class="form-group">
-                <label class="col-sm-2 control-label">标题</label>
+                <label class="col-sm-2 control-label">Title</label>
                 <div class="col-sm-10">
                   <input v-model="section.title" class="form-control">
                 </div>
               </div>
               <div class="form-group">
-                <label class="col-sm-2 control-label">课程</label>
+                <label class="col-sm-2 control-label">Course Name</label>
                 <div class="col-sm-10">
                   <p class="form-control-static">{{course.name}}</p>
                 </div>
               </div>
               <div class="form-group">
-                <label class="col-sm-2 control-label">大章</label>
+                <label class="col-sm-2 control-label">Chapter</label>
                 <div class="col-sm-10">
                   <p class="form-control-static">{{chapter.name}}</p>
                 </div>
               </div>
               <div class="form-group">
-                <label class="col-sm-2 control-label">视频</label>
+                <label class="col-sm-2 control-label">Video</label>
                 <div class="col-sm-10">
                   <vod v-bind:input-id="'video-upload'"
-                       v-bind:text="'上传VOD'"
+                       v-bind:text="'Upload VOD'"
                        v-bind:suffixs="['mp4']"
                        v-bind:use="FILE_USE.COURSE.key"
                        v-bind:after-upload="afterUpload"></vod>
@@ -104,13 +109,13 @@
                 </div>
               </div>
               <div class="form-group">
-                <label class="col-sm-2 control-label">时长</label>
+                <label class="col-sm-2 control-label">Duration</label>
                 <div class="col-sm-10">
                   <input v-model="section.time" class="form-control" >
                 </div>
               </div>
               <div class="form-group">
-                <label class="col-sm-2 control-label">视频</label>
+                <label class="col-sm-2 control-label">URL</label>
                 <div class="col-sm-10">
                   <input v-model="section.video" class="form-control" disabled>
                 </div>
@@ -122,7 +127,7 @@
                 </div>
               </div>
               <div class="form-group">
-                <label class="col-sm-2 control-label">收费</label>
+                <label class="col-sm-2 control-label">Charge Or Not</label>
                 <div class="col-sm-10">
                   <select v-model="section.charge" class="form-control">
                     <option v-for="o in SECTION_CHARGE" v-bind:value="o.key">{{o.value}}</option>
@@ -130,7 +135,7 @@
                 </div>
               </div>
               <div class="form-group">
-                <label class="col-sm-2 control-label">顺序</label>
+                <label class="col-sm-2 control-label">Sort</label>
                 <div class="col-sm-10">
                   <input v-model="section.sort" class="form-control">
                 </div>
@@ -138,8 +143,8 @@
             </form>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-            <button v-on:click="save()" type="button" class="btn btn-primary">保存</button>
+            <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+            <button v-on:click="save()" type="button" class="btn btn-primary">Save</button>
           </div>
         </div><!-- /.modal-content -->
       </div><!-- /.modal-dialog -->
@@ -230,8 +235,8 @@
         _this.section.video = "";
         // 保存校验
         if (1 != 1
-            || !Validator.require(_this.section.title, "标题")
-            || !Validator.length(_this.section.title, "标题", 1, 50)
+            || !Validator.require(_this.section.title, "Title")
+            || !Validator.length(_this.section.title, "Title", 1, 50)
             || !Validator.length(_this.section.video, "视频", 1, 200)
         ) {
           return;
@@ -247,7 +252,7 @@
           if (resp.success) {
             $("#form-modal").modal("hide");
             _this.list(1);
-            Toast.success("保存成功！");
+            Toast.success("Saved successfully!");
           } else {
             Toast.warning(resp.message)
           }
@@ -259,14 +264,14 @@
        */
       del(id) {
         let _this = this;
-        Confirm.show("删除小节后不可恢复，确认删除？", function () {
+        Confirm.show("After deletion, it cannot be recovered. Confirm deletion?", function () {
           Loading.show();
           _this.$ajax.delete(process.env.VUE_APP_SERVER + '/business/admin/section/delete/' + id).then((response) => {
             Loading.hide();
             let resp = response.data;
             if (resp.success) {
               _this.list(1);
-              Toast.success("删除成功！");
+              Toast.success("Deleted successfully!");
             }
           })
         });

@@ -8,7 +8,7 @@
     <button type="button" className="btn btn-default btn-white btn-round"
             v-bind:disabled="page === 1"
             v-on:click="selectPage(page - 1)">
-      上一页
+      Previous
     </button>
     <button v-for="p in pages" v-bind:id="'page-' + p"
             type="button" className="btn btn-default btn-white btn-round"
@@ -19,7 +19,7 @@
     <button type="button" className="btn btn-default btn-white btn-round"
             v-bind:disabled="page === pageTotal"
             v-on:click="selectPage(page + 1)">
-      下一页
+      Next
     </button>
     <button type="button" className="btn btn-default btn-white btn-round"
             v-bind:disabled="page === pageTotal"
@@ -27,18 +27,6 @@
       {{ pageTotal || 1 }}
     </button>
     &nbsp;
-    <span className="m--padding-10">
-        每页
-        <select v-model="size">
-            <option value="1">1</option>
-            <option value="5">5</option>
-            <option value="10">10</option>
-            <option value="20">20</option>
-            <option value="50">50</option>
-            <option value="100">100</option>
-        </select>
-        条，共【{{ total }}】条
-    </span>
   </div>
 </template>
 

@@ -3,7 +3,7 @@
     <p>
       <button v-on:click="list(1)" class="btn btn-white btn-default btn-round">
         <i class="ace-icon fa fa-refresh"></i>
-        刷新
+        Refresh
       </button>
     </p>
 
@@ -13,7 +13,7 @@
 
         <br>
         <button id="save-btn" type="button" class="btn btn-primary" v-on:click="save()">
-          保存
+          Save
         </button>
       </div>
       <div class="col-md-6">
@@ -90,14 +90,14 @@ export default {
      */
     del(id) {
       let _this = this;
-      Confirm.show("删除资源后不可恢复，确认删除？", function () {
+      Confirm.show("After deletion, it cannot be recovered. Confirm deletion?", function () {
         Loading.show();
         _this.$ajax.delete(process.env.VUE_APP_SERVER + '/system/admin/resource/delete/' + id).then((response)=>{
           Loading.hide();
           let resp = response.data;
           if (resp.success) {
             _this.list(1);
-            Toast.success("删除成功！");
+            Toast.success("Deleted successfully!");
           }
         })
       });

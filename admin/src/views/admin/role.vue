@@ -3,12 +3,12 @@
     <p>
       <button v-on:click="add()" class="btn btn-white btn-default btn-round">
         <i class="ace-icon fa fa-edit"></i>
-        新增
+        Add
       </button>
       &nbsp;
       <button v-on:click="list(1)" class="btn btn-white btn-default btn-round">
         <i class="ace-icon fa fa-refresh"></i>
-        刷新
+        Refresh
       </button>
     </p>
 
@@ -17,10 +17,10 @@
     <table id="simple-table" class="table  table-bordered table-hover">
       <thead>
       <tr>
-              <th>id</th>
-            <th>角色</th>
-            <th>描述</th>
-        <th>操作</th>
+            <th>id</th>
+            <th>Roles</th>
+            <th>Description</th>
+        <th></th>
       </tr>
       </thead>
 
@@ -54,18 +54,18 @@
         <div class="modal-content">
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            <h4 class="modal-title">表单</h4>
+            <h4 class="modal-title">Form</h4>
           </div>
           <div class="modal-body">
             <form class="form-horizontal">
                     <div class="form-group">
-                      <label class="col-sm-2 control-label">角色</label>
+                      <label class="col-sm-2 control-label">Roles</label>
                       <div class="col-sm-10">
                         <input v-model="role.name" class="form-control">
                       </div>
                     </div>
                     <div class="form-group">
-                      <label class="col-sm-2 control-label">描述</label>
+                      <label class="col-sm-2 control-label">Description</label>
                       <div class="col-sm-10">
                         <input v-model="role.desc" class="form-control">
                       </div>
@@ -73,8 +73,8 @@
             </form>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-            <button v-on:click="save()" type="button" class="btn btn-primary">保存</button>
+            <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+            <button v-on:click="save()" type="button" class="btn btn-primary">Save</button>
           </div>
         </div><!-- /.modal-content -->
       </div><!-- /.modal-dialog -->
@@ -86,19 +86,19 @@
         <div class="modal-content">
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            <h4 class="modal-title">角色资源关联配置</h4>
+            <h4 class="modal-title">Role Resource Association Configuration</h4>
           </div>
           <div class="modal-body">
             <ul id="tree" class="ztree"></ul>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-white btn-default btn-round" data-dismiss="modal">
+              Cancel
               <i class="ace-icon fa fa-times"></i>
-              关闭
             </button>
             <button type="button" class="btn btn-white btn-info btn-round" v-on:click="saveResource()">
+              Save
               <i class="ace-icon fa fa-plus blue"></i>
-              保存
             </button>
           </div>
         </div><!-- /.modal-content -->
@@ -110,7 +110,7 @@
         <div class="modal-content">
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            <h4 class="modal-title">角色用户关联配置</h4>
+            <h4 class="modal-title">Role User Association Configuration</h4>
           </div>
           <div class="modal-body">
             <div class="row">
@@ -146,12 +146,12 @@
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-white btn-default btn-round" data-dismiss="modal">
+              Cancel
               <i class="ace-icon fa fa-times"></i>
-              关闭
             </button>
             <button type="button" class="btn btn-white btn-info btn-round" v-on:click="saveUser()">
+              Save
               <i class="ace-icon fa fa-plus blue"></i>
-              保存
             </button>
           </div>
         </div><!-- /.modal-content -->
@@ -228,10 +228,10 @@
 
         // 保存校验
         if (1 != 1
-                || !Validator.require(_this.role.name, "角色")
-                || !Validator.length(_this.role.name, "角色", 1, 50)
-                || !Validator.require(_this.role.desc, "描述")
-                || !Validator.length(_this.role.desc, "描述", 1, 100)
+                || !Validator.require(_this.role.name, "Role")
+                || !Validator.length(_this.role.name, "Role", 1, 50)
+                || !Validator.require(_this.role.desc, "Description")
+                || !Validator.length(_this.role.desc, "Description", 1, 100)
         ) {
           return;
         }
@@ -243,7 +243,7 @@
           if (resp.success) {
             $("#form-modal").modal("hide");
             _this.list(1);
-            Toast.success("保存成功！");
+            Toast.success("Saved successfully!");
           } else {
             Toast.warning(resp.message)
           }
@@ -255,14 +255,14 @@
        */
       del(id) {
         let _this = this;
-        Confirm.show("删除角色后不可恢复，确认删除？", function () {
+        Confirm.show("After deletion, it cannot be recovered. Confirm deletion?", function () {
           Loading.show();
           _this.$ajax.delete(process.env.VUE_APP_SERVER + '/system/admin/role/delete/' + id).then((response)=>{
             Loading.hide();
             let resp = response.data;
             if (resp.success) {
               _this.list(1);
-              Toast.success("删除成功！");
+              Toast.success("Deleted successfully!");
             }
           })
         });
@@ -337,7 +337,7 @@
         }).then((response)=>{
           let resp = response.data;
           if (resp.success) {
-            Toast.success("保存成功!");
+            Toast.success("Saved successfully!");
           } else {
             Toast.warning(resp.message);
           }
@@ -432,7 +432,7 @@
           console.log("保存角色用户结果：", response);
           let resp = response.data;
           if (resp.success) {
-            Toast.success("保存成功!");
+            Toast.success("Saved successfully!");
           } else {
             Toast.warning(resp.message);
           }

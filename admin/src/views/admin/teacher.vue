@@ -3,12 +3,12 @@
     <p>
       <button v-on:click="add()" class="btn btn-white btn-default btn-round">
         <i class="ace-icon fa fa-edit"></i>
-        新增
+        New
       </button>
       &nbsp;
       <button v-on:click="list(1)" class="btn btn-white btn-default btn-round">
         <i class="ace-icon fa fa-refresh"></i>
-        刷新
+        Refresh
       </button>
     </p>
 
@@ -76,26 +76,26 @@
         <div class="modal-content">
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            <h4 class="modal-title">表单</h4>
+            <h4 class="modal-title">Form</h4>
           </div>
           <div class="modal-body">
             <form class="form-horizontal">
                     <div class="form-group">
-                      <label class="col-sm-2 control-label">姓名</label>
+                      <label class="col-sm-2 control-label">Name</label>
                       <div class="col-sm-10">
                         <input v-model="teacher.name" class="form-control">
                       </div>
                     </div>
                     <div class="form-group">
-                      <label class="col-sm-2 control-label">昵称</label>
+                      <label class="col-sm-2 control-label">Nickname</label>
                       <div class="col-sm-10">
                         <input v-model="teacher.nickname" class="form-control">
                       </div>
                     </div>
                     <div class="form-group">
-                      <label class="col-sm-2 control-label">头像</label>
+                      <label class="col-sm-2 control-label">Profile Picture</label>
                       <div class="col-sm-10">
-                        <big-file v-bind:text="'上传头像'"
+                        <big-file v-bind:text="'Upload Profile Picture'"
                               v-bind:input-id="'image-upload'"
                               v-bind:suffixs="['jpeg','jpg','png']"
                               v-bind:use="FILE_USE.TEACHER.key"
@@ -108,19 +108,19 @@
                       </div>
                     </div>
                     <div class="form-group">
-                      <label class="col-sm-2 control-label">职位</label>
+                      <label class="col-sm-2 control-label">Position</label>
                       <div class="col-sm-10">
                         <input v-model="teacher.position" class="form-control">
                       </div>
                     </div>
                     <div class="form-group">
-                      <label class="col-sm-2 control-label">座右铭</label>
+                      <label class="col-sm-2 control-label">Motto</label>
                       <div class="col-sm-10">
                         <input v-model="teacher.motto" class="form-control">
                       </div>
                     </div>
                     <div class="form-group">
-                      <label class="col-sm-2 control-label">简介</label>
+                      <label class="col-sm-2 control-label">Info</label>
                       <div class="col-sm-10">
                         <textarea v-model="teacher.intro" class="form-control" rows="5"></textarea>
                       </div>
@@ -128,8 +128,8 @@
             </form>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-            <button v-on:click="save()" type="button" class="btn btn-primary">保存</button>
+            <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+            <button v-on:click="save()" type="button" class="btn btn-primary">Save</button>
           </div>
         </div><!-- /.modal-content -->
       </div><!-- /.modal-dialog -->
@@ -205,13 +205,13 @@
 
         // 保存校验
         if (1 != 1
-            || !Validator.require(_this.teacher.name, "姓名")
-            || !Validator.length(_this.teacher.name, "姓名", 1, 50)
-            || !Validator.length(_this.teacher.nickname, "昵称", 1, 50)
-            || !Validator.length(_this.teacher.image, "头像", 1, 100)
-            || !Validator.length(_this.teacher.position, "职位", 1, 50)
-            || !Validator.length(_this.teacher.motto, "座右铭", 1, 50)
-            || !Validator.length(_this.teacher.intro, "简介", 1, 500)
+            || !Validator.require(_this.teacher.name, "Name")
+            || !Validator.length(_this.teacher.name, "Name", 1, 50)
+            || !Validator.length(_this.teacher.nickname, "Nickname", 1, 50)
+            || !Validator.length(_this.teacher.image, "Profile Picture", 1, 100)
+            || !Validator.length(_this.teacher.position, "Position", 1, 50)
+            || !Validator.length(_this.teacher.motto, "Motto", 1, 50)
+            || !Validator.length(_this.teacher.intro, "Info", 1, 500)
         ) {
           return;
         }
@@ -223,7 +223,7 @@
           if (resp.success) {
             $("#form-modal").modal("hide");
             _this.list(1);
-            Toast.success("保存成功！");
+            Toast.success("Saved successfully!");
           } else {
             Toast.warning(resp.message)
           }
@@ -235,14 +235,14 @@
        */
       del(id) {
         let _this = this;
-        Confirm.show("删除讲师后不可恢复，确认删除？", function () {
+        Confirm.show("After deletion, it cannot be recovered. Confirm deletion?", function () {
           Loading.show();
           _this.$ajax.delete(process.env.VUE_APP_SERVER + '/business/admin/teacher/delete/' + id).then((response) => {
             Loading.hide();
             let resp = response.data;
             if (resp.success) {
               _this.list(1);
-              Toast.success("删除成功！");
+              Toast.success("Deleted successfully!");
             }
           })
         });

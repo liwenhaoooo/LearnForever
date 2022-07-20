@@ -3,12 +3,12 @@
     <p>
       <button v-show="hasResource('010101')" v-on:click="add()" class="btn btn-white btn-default btn-round">
         <i class="ace-icon fa fa-edit"></i>
-        新增
+        Add
       </button>
       &nbsp;
       <button v-on:click="list(1)" class="btn btn-white btn-default btn-round">
         <i class="ace-icon fa fa-refresh"></i>
-        刷新
+        Refresh
       </button>
     </p>
 
@@ -17,11 +17,11 @@
     <table id="simple-table" class="table  table-bordered table-hover">
       <thead>
       <tr>
-                    <th>id</th>
-            <th>登陆名</th>
-            <th>昵称</th>
-            <th>密码</th>
-        <th>操作</th>
+            <th>id</th>
+            <th>Username</th>
+            <th>Nickname</th>
+            <th>Password</th>
+        <th></th>
       </tr>
       </thead>
 
@@ -53,33 +53,33 @@
         <div class="modal-content">
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            <h4 class="modal-title">表单</h4>
+            <h4 class="modal-title">Form</h4>
           </div>
           <div class="modal-body">
             <form class="form-horizontal">
                     <div class="form-group">
-                      <label class="col-sm-2 control-label">登陆名</label>
+                      <label class="col-sm-2 control-label">Username</label>
                       <div class="col-sm-10">
                         <input v-model="user.loginName" v-bind:disabled="user.id" class="form-control">
                       </div>
                     </div>
                     <div class="form-group">
-                      <label class="col-sm-2 control-label">昵称</label>
+                      <label class="col-sm-2 control-label">Nickname</label>
                       <div class="col-sm-10">
                         <input v-model="user.name" class="form-control">
                       </div>
                     </div>
                     <div v-show="!user.id" class="form-group">
-                      <label class="col-sm-2 control-label">密码</label>
+                      <label class="col-sm-2 control-label">Password</label>
                       <div class="col-sm-10">
                         <input v-model="user.password" type="password" class="form-control">
                       </div>
-                    </div>
+                      </div>
             </form>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-            <button v-on:click="save()" type="button" class="btn btn-primary">保存</button>
+            <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+            <button v-on:click="save()" type="button" class="btn btn-primary">Save</button>
           </div>
         </div><!-- /.modal-content -->
       </div><!-- /.modal-dialog -->
@@ -89,12 +89,12 @@
         <div class="modal-content">
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            <h4 class="modal-title">修改密码</h4>
+            <h4 class="modal-title">Change your password</h4>
           </div>
           <div class="modal-body">
             <form class="form-horizontal">
               <div class="form-group">
-                <label class="control-label col-sm-2">密码</label>
+                <label class="control-label col-sm-2">Password</label>
                 <div class="col-sm-10">
                   <input class="form-control" type="password" v-model="user.password" name="password">
                 </div>
@@ -103,12 +103,12 @@
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-white btn-default btn-round" data-dismiss="modal">
+              Cancel
               <i class="ace-icon fa fa-times"></i>
-              取消
             </button>
             <button type="button" class="btn btn-white btn-info btn-round" v-on:click="savePassword()">
+              Save
               <i class="ace-icon fa fa-plus blue"></i>
-              保存密码
             </button>
           </div>
         </div><!-- /.modal-content -->
@@ -189,10 +189,10 @@
 
         // 保存校验
         if (1 != 1
-                || !Validator.require(_this.user.loginName, "登陆名")
-                || !Validator.length(_this.user.loginName, "登陆名", 1, 50)
-                || !Validator.length(_this.user.name, "昵称", 1, 50)
-                || !Validator.require(_this.user.password, "密码")
+                || !Validator.require(_this.user.loginName, "Username")
+                || !Validator.length(_this.user.loginName, "Username", 1, 50)
+                || !Validator.length(_this.user.name, "Nickname", 1, 50)
+                || !Validator.require(_this.user.password, "Password")
         ) {
           return;
         }
@@ -204,7 +204,7 @@
           if (resp.success) {
             $("#form-modal").modal("hide");
             _this.list(1);
-            Toast.success("保存成功！");
+            Toast.success("Saved successfully!");
           } else {
             Toast.warning(resp.message)
           }
@@ -216,14 +216,14 @@
        */
       del(id) {
         let _this = this;
-        Confirm.show("删除用户后不可恢复，确认删除？", function () {
+        Confirm.show("After deletion, it cannot be recovered. Confirm deletion?", function () {
           Loading.show();
           _this.$ajax.delete(process.env.VUE_APP_SERVER + '/system/admin/user/delete/' + id).then((response) => {
             Loading.hide();
             let resp = response.data;
             if (resp.success) {
               _this.list(1);
-              Toast.success("删除成功！");
+              Toast.success("Deleted successfully!");
             }
           })
         });
@@ -253,7 +253,7 @@
           if (resp.success) {
             $("#edit-password-modal").modal("hide");
             _this.list(1);
-            Toast.success("保存成功！");
+            Toast.success("Saved successfully!");
           } else {
             Toast.warning(resp.message)
           }

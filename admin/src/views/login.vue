@@ -30,14 +30,14 @@
                       <fieldset>
                         <label class="block clearfix">
 														<span class="block input-icon input-icon-right">
-															<input v-model="user.loginName" type="text" class="form-control" placeholder="用户名"/>
+															<input v-model="user.loginName" type="text" class="form-control" placeholder="Username"/>
                             <i class="ace-icon fa fa-user"></i>
 														</span>
                         </label>
 
                         <label class="block clearfix">
 														<span class="block input-icon input-icon-right">
-															<input v-model="user.password" type="password" class="form-control" placeholder="密码"/>
+															<input v-model="user.password" type="password" class="form-control" placeholder="Password"/>
                             <i class="ace-icon fa fa-lock"></i>
 														</span>
                         </label>
@@ -45,9 +45,9 @@
                         <label class="block clearfix">
                           <span class="block input-icon input-icon-right">
                             <div class="input-group">
-                             <input v-model="user.imageCode" type="text" class="form-control" placeholder="验证码">
+                             <input v-model="user.imageCode" type="text" class="form-control" placeholder="Verification Code">
                               <span class="input-group-addon" id="basic-addon2">
-                                <img v-on:click="loadImageCode()" id="image-code" alt="验证码"/>
+                                <img v-on:click="loadImageCode()" id="image-code" alt="Verification Code"/>
                               </span>
                             </div>
                           </span>

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>您好，欢迎进入管理系统</h1>
+    <h1>Hello and welcome to the management system!</h1>
   </div>
 </template>
 

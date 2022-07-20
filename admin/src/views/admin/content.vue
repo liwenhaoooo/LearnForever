@@ -5,20 +5,19 @@
       <router-link to="/business/course" class="pink"> {{course.name}} </router-link>
     </h4>
     <hr>
-
-    <file v-bind:input-id="'content-file-upload'"
-          v-bind:text="'上传文件'"
+    <big-file v-bind:input-id="'content-file-upload'"
+          v-bind:text="'Upload Files'"
           v-bind:suffixs="['jpg', 'jpeg', 'png', 'mp4']"
           v-bind:use="FILE_USE.COURSE.key"
-          v-bind:after-upload="afterUploadContentFile"></file>
+          v-bind:after-upload="afterUploadContentFile"></big-file>
     <br>
     <table id="file-table" class="table  table-bordered table-hover">
       <thead>
       <tr>
-        <th>名称</th>
-        <th>地址</th>
-        <th>大小</th>
-        <th>操作</th>
+        <th>Name</th>
+        <th>URL</th>
+        <th>Size</th>
+        <th></th>
       </tr>
       </thead>
 
@@ -30,7 +29,7 @@
         <td>
           <button v-on:click="delFile(f)" class="btn btn-white btn-xs btn-warning btn-round">
             <i class="ace-icon fa fa-times red2"></i>
-            删除
+            Delete
           </button>
         </td>
       </tr>
@@ -56,11 +55,11 @@
     <p>
       <button type="button" class="btn btn-white btn-info btn-round" v-on:click="saveContent()">
         <i class="ace-icon fa fa-plus blue"></i>
-        保存
+        Save
       </button>&nbsp;
       <router-link to="/business/course" type="button" class="btn btn-white btn-default btn-round" data-dismiss="modal">
-        <i class="ace-icon fa fa-times"></i>
-        返回课程
+        Back
+        <i class="ace-icon fa fa-arrow-left"></i>
       </router-link>
     </p>
   </div>
@@ -68,8 +67,9 @@
 
 <script>
 import File from "../../components/file";
+import BigFile from "@/components/big-file";
 export default {
-  components: {File},
+  components: {BigFile, File},
   name: "business-course-content",
   data: function() {
     return {
@@ -182,14 +182,14 @@ export default {
      */
     afterUploadContentFile(response) {
       let _this = this;
-      console.log("开始保存文件记录");
+      console.log("Start saving the file record");
       let file = response.content;
       file.courseId = _this.course.id;
       file.url = file.path;
       _this.$ajax.post(process.env.VUE_APP_SERVER + '/business/admin/course-content-file/save', file).then((response)=>{
         let resp = response.data;
         if (resp.success) {
-          Toast.success("上传文件成功");
+          Toast.success("File uploaded successfully!");
           _this.files.push(resp.content);
         }
       });
@@ -201,11 +201,11 @@ export default {
      */
     delFile(f) {
       let _this = this;
-      Confirm.show("删除课程后不可恢复，确认删除？", function () {
+      Confirm.show("After deletion, it cannot be recovered. Confirm deletion?", function () {
         _this.$ajax.delete(process.env.VUE_APP_SERVER + '/business/admin/course-content-file/delete/' + f.id).then((response)=>{
           let resp = response.data;
           if (resp.success) {
-            Toast.success("删除文件成功");
+            Toast.success("Deleted successfully!");
             Tool.removeObj(_this.files, f);
           }
         });

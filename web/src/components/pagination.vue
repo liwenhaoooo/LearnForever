@@ -4,14 +4,14 @@
       1
     </button>
     <button type="button" class="btn btn-outline-dark" v-bind:disabled="page === 1" v-on:click="selectPage(page - 1)">
-      上一页
+      Previous
     </button>
     <button v-for="p in pages" v-bind:id="'page-' + p" type="button"
             v-bind:class="{'btn-primary active':page == p}" class="btn btn-outline-dark" v-on:click="selectPage(p)">
       {{p}}
     </button>
     <button type="button" class="btn btn-outline-dark" v-bind:disabled="page === pageTotal" v-on:click="selectPage(page + 1)">
-      下一页
+       Next
     </button>
     <button type="button" class="btn btn-outline-dark" v-bind:disabled="page === pageTotal" v-on:click="selectPage(pageTotal)">
       {{pageTotal||1}}

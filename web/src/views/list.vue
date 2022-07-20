@@ -12,7 +12,7 @@
         </div>
         <br>
         <div class="row">
-          <h3 v-show="courses.length === 0">课程还未上架</h3>
+          <h3 v-show="courses.length === 0">Courses are not yet available!</h3>
         </div>
       </div>
     </div>

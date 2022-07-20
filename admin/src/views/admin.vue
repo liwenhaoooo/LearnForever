@@ -352,7 +352,7 @@
           <li class="" id="welcome-sidebar">
             <router-link to="/welcome">
               <i class="menu-icon fa fa-tachometer"></i>
-              <span class="menu-text"> 欢迎：{{loginUser.name}} </span>
+              <span class="menu-text"> Welcome：{{loginUser.name}} </span>
             </router-link>
             <b class="arrow"></b>
           </li>
@@ -360,7 +360,7 @@
           <li v-show="hasResource('01')" class="">
             <a href="#" class="dropdown-toggle">
               <i class="menu-icon fa fa-list"></i>
-              <span class="menu-text"> 系统管理 </span>
+              <span class="menu-text"> System MGMT </span>
 
               <b class="arrow fa fa-angle-down"></b>
             </a>
@@ -371,7 +371,7 @@
               <li v-show="hasResource('0101')" class="" id="system-user-sidebar">
                 <router-link to="/system/user">
                   <i class="menu-icon fa fa-caret-right"></i>
-                  用户管理
+                  User MGMT
                 </router-link>
 
                 <b class="arrow"></b>
@@ -380,7 +380,7 @@
               <li v-show="hasResource('0102')" class="" id="system-resource-sidebar">
                 <router-link to="/system/resource">
                   <i class="menu-icon fa fa-caret-right"></i>
-                  资源管理
+                  Resource MGMT
                 </router-link>
 
                 <b class="arrow"></b>
@@ -389,7 +389,7 @@
               <li v-show="hasResource('0103')" class="" id="system-role-sidebar">
               <router-link to="/system/role">
                   <i class="menu-icon fa fa-caret-right"></i>
-                  角色管理
+                Role MGMT
                 </router-link>
 
                 <b class="arrow"></b>
@@ -400,7 +400,7 @@
           <li v-show="hasResource('02')" class="">
             <a href="#" class="dropdown-toggle">
               <i class="menu-icon fa fa-list"></i>
-              <span class="menu-text"> 业务管理 </span>
+              <span class="menu-text"> Business MGMT </span>
 
               <b class="arrow fa fa-angle-down"></b>
             </a>
@@ -411,7 +411,7 @@
               <li v-show="hasResource('0201')" class="" id="business-category-sidebar">
                 <router-link to="/business/category">
                   <i class="menu-icon fa fa-caret-right"></i>
-                  分类管理
+                  Category MGMT
                 </router-link>
                 <b class="arrow"></b>
 
@@ -419,14 +419,14 @@
               <li v-show="hasResource('0202')" class="" id="business-course-sidebar">
                 <router-link to="/business/course">
                   <i class="menu-icon fa fa-caret-right"></i>
-                  课程管理
+                  Course MGMT
                 </router-link>
                 <b class="arrow"></b>
               </li>
               <li v-show="hasResource('0203')" class="" id="business-teacher-sidebar">
                 <router-link to="/business/teacher">
                   <i class="menu-icon fa fa-caret-right"></i>
-                  讲师管理
+                  Lecturer MGMT
                 </router-link>
                 <b class="arrow"></b>
               </li>
@@ -436,7 +436,7 @@
           <li v-show="hasResource('03')" class="">
           <a href="#" class="dropdown-toggle">
               <i class="menu-icon fa fa-list"></i>
-              <span class="menu-text"> 文件管理 </span>
+              <span class="menu-text"> File MGMT </span>
 
               <b class="arrow fa fa-angle-down"></b>
             </a>
@@ -447,7 +447,7 @@
               <li v-show="hasResource('0301')" class="" id="file-file-sidebar">
                 <router-link to="/file/file">
                   <i class="menu-icon fa fa-caret-right"></i>
-                  文件管理
+                  File MGMT
                 </router-link>
 
                 <b class="arrow"></b>
