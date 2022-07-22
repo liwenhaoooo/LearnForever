@@ -29,7 +29,7 @@
             </li>
           </ul>
             <span class="text-white">Welcome：</span>
-          <button class="btn btn-outline-light my-2 my-sm-0" type="submit">Sing in/Register</button>
+          <button class="btn btn-outline-light my-2 my-sm-0" type="submit">Sign in/Register</button>
         </div>
       </div>
     </nav>

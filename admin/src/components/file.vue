@@ -51,7 +51,7 @@ export default {
         }
       }
       if (!validateSuffix) {
-        Toast.warning("文件格式不正确！只支持上传：" + suffixs.join(","));
+        Toast.warning("Incorrect file format!Only "+suffixs.join(",")+"jpg files are supported for upload." );
         $("#" + _this.inputId + "-input").val("");
         return;
       }

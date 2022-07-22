@@ -79,7 +79,7 @@ export default {
         }
       }
       if (!validateSuffix) {
-        Toast.warning("文件格式不正确！只支持上传：" + suffixs.join(","));
+        Toast.warning("Incorrect file format!Only "+suffixs.join(",")+"jpg files are supported for upload." );
         $("#" + _this.inputId + "-input").val("");
         return;
       }
@@ -119,7 +119,7 @@ export default {
             _this.upload(param);
           }else if (obj.shardIndex === obj.shardTotal) {
             // 已上传分片 = 分片总数，说明已全部上传完，不需要再上传
-            Toast.success("文件极速秒传成功！");
+            Toast.success("File uploaded successfully!");
             _this.afterUpload(resp);
             $("#" + _this.inputId + "-input").val("");
           } else {
@@ -128,7 +128,7 @@ export default {
             _this.upload(param);
           }
         } else {
-          Toast.warning("文件上传失败");
+          Toast.warning("File upload failed");
           $("#" + _this.inputId + "-input").val("");
         }
       })

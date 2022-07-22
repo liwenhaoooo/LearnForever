@@ -2,11 +2,11 @@
   <main role="main">
 
     <section class="jumbotron text-center">
-      <div class="container">
+      <div class="container" >
         <h1>LEARN_FOREVER</h1>
         <p class="lead text-muted m-3">
-          知识付费时代刚刚起步，在这个领域有很多的发展机会。整个课程以实战为基础，手把手从零开始，一步一步搭建一个完整的企业级开发架构。不讲废话，只讲干货。
-        </p>
+          The courses cover: Front-end \ JAVA \ Python \ Go \ Artificial Intelligence \ Big Data \ Mobile and other mainstream technical languages, fully meet the interview employment, career growth, self
+          The courses fully meet the practical needs of interview and employment, career growth and self-improvement, and help users achieve a closed loop of ability from skill enhancement to job promotion.</p>
         <p>
           <router-link to="/list" class="btn btn-primary my-2 p-3 font-weight-bold">Click To Access All Courses</router-link>
         </p>

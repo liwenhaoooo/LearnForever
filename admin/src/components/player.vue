@@ -71,7 +71,7 @@ export default {
 
           });
         } else {
-          Toast.warning('播放错误。')
+          Toast.warning('Playback error!')
         }
       });
     },
