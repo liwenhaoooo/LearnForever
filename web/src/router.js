@@ -3,6 +3,7 @@ import Router from "vue-router"
 import Index from "./views/index.vue"
 import List from "./views/list.vue"
 import Quiz from "./views/quiz.vue"
+import Detail from "./views/detail.vue"
 
 
 Vue.use(Router);
@@ -19,6 +20,9 @@ export default new Router({
     }, {
         path: "/list",
         component: List
+    }, {
+        path: "/detail",
+        component: Detail
     }, {
         path: "/quiz",
         component: Quiz
