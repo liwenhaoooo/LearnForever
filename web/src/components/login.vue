@@ -9,7 +9,7 @@
               <input v-model="member.mobile" class="form-control" placeholder="手机号">
             </div>
             <div class="form-group">
-              <input class="form-control" type="password" placeholder="密码" v-model="member.passwordOriginal">
+              <input class="form-control" type="password" placeholder="密码" v-model="member.password">
             </div>
             <div class="form-group">
               <div class="input-group">
@@ -21,7 +21,7 @@
               </div>
             </div>
             <div class="form-group">
-              <button class="btn btn-primary btn-block submit-button">
+              <button v-on:click="login()" class="btn btn-primary btn-block submit-button">
                 登&nbsp;&nbsp;录
               </button>
             </div>
@@ -149,14 +149,22 @@ export default {
      */
     openLoginModal() {
       let _this = this;
-      // 显示登录框时就刷新一次验证码图片
-      _this.loadImageCode();
       $("#login-modal").modal("show");
     },
 
     //---------------登录框、注册框、忘记密码框切换-----------------
     toLoginDiv() {
       let _this = this;
+
+      // 从缓存中获取记住的用户名密码，如果获取不到，说明上一次没有勾选“记住我”
+      let rememberMember = LocalStorage.get(LOCAL_KEY_REMEMBER_MEMBER);
+      if (rememberMember) {
+        _this.member = rememberMember;
+      }
+
+      // 显示登录框时就刷新一次验证码图片
+      _this.loadImageCode();
+
       _this.MODAL_STATUS = _this.STATUS_LOGIN
     },
     toRegisterDiv() {
@@ -185,6 +193,50 @@ export default {
 
 
     //---------------登录框-----------------
+    login () {
+      let _this = this;
+
+      // 如果密码是从缓存带出来的，则不需要重新加密
+      let md5 = hex_md5(_this.member.password);
+      let rememberMember = LocalStorage.get(LOCAL_KEY_REMEMBER_MEMBER) || {};
+      if (md5 !== rememberMember.md5) {
+        _this.member.password = hex_md5(_this.member.password + KEY);
+      }
+
+      _this.member.imageCodeToken = _this.imageCodeToken;
+
+      _this.$ajax.post(process.env.VUE_APP_SERVER + '/business/web/member/login', _this.member).then((response)=>{
+        let resp = response.data;
+        if (resp.success) {
+          console.log("登录成功：", resp.content);
+          let loginMember = resp.content;
+          Tool.setLoginMember(resp.content);
+
+          // 判断“记住我”
+          if (_this.remember) {
+            // 如果勾选记住我，则将用户名密码保存到本地缓存
+            // 这里保存密码密文，并保存密文md5，用于检测密码是否被重新输入过
+            let md5 = hex_md5(_this.member.password);
+            LocalStorage.set(LOCAL_KEY_REMEMBER_MEMBER, {
+              mobile: loginMember.mobile,
+              password: _this.member.password,
+              md5: md5
+            });
+          } else {
+            // 没有勾选“记住我”时，要把本地缓存清空，否则下次显示登录框时会自动显示用户名密码
+            LocalStorage.set(LOCAL_KEY_REMEMBER_MEMBER, null);
+          }
+
+          // 登录成功 TODO
+
+
+        } else {
+          Toast.warning(resp.message);
+          _this.member.password = "";
+          _this.loadImageCode();
+        }
+      });
+    },
     /**
      * 加载图形验证码
      */
@@ -228,3 +280,4 @@ export default {
   text-align: center;
 }
 </style>
+
