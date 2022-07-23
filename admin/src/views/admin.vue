@@ -165,6 +165,15 @@
                 </router-link>
                 <b class="arrow"></b>
               </li>
+
+              <li v-show="hasResource('0204')" class="" id="business-member-sidebar">
+                <router-link to="/business/member">
+                  <i class="menu-icon fa fa-caret-right"></i>
+                  Member MGMT
+                </router-link>
+
+                <b class="arrow"></b>
+              </li>
             </ul>
           </li>
 
