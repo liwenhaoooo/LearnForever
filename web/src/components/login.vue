@@ -3,7 +3,6 @@
     <div class="modal-dialog modal-login" role="document">
       <div class="modal-content">
         <div class="modal-body">
-
           <div class="login-div" v-show="MODAL_STATUS === STATUS_LOGIN">
             <h3>登&nbsp;&nbsp;录</h3>
             <div class="form-group">
@@ -29,7 +28,7 @@
             <div class="form-group">
               <div class="checkbox">
                 <label>
-                  <input type="checkbox" class=" rememberMe" v-model="rememberMe"> 记住密码
+                  <input type="checkbox" class="remember" v-model="remember"> 记住密码
                 </label>
                 <div class="pull-right">
                   <a href="javascript:;" v-on:click="toForgetDiv()">忘记密码</a>&nbsp;
@@ -41,40 +40,38 @@
             </div>
           </div>
           <div class="register-div" v-show="MODAL_STATUS === STATUS_REGISTER">
-
-
-          <h3>Register</h3>
+            <h3>注&nbsp;&nbsp;册</h3>
             <div class="form-group">
               <input id="register-mobile" v-model="memberRegister.mobile"
-                     class="form-control" placeholder="Phone Number">
+                     class="form-control" placeholder="手机号">
             </div>
             <div class="form-group">
               <div class="input-group">
                 <input id="register-mobile-code" class="form-control"
-                       placeholder="Verification Code" v-model="memberRegister.code">
+                       placeholder="手机验证码" v-model="memberRegister.code">
                 <div class="input-group-append">
                   <button class="btn btn-outline-secondary" id="register-send-code-btn"
-                          v-on:click="sendSmsForRegister()">Send verification code
+                          v-on:click="sendSmsForRegister()">发送验证码
                   </button>
                 </div>
               </div>
             </div>
             <div class="form-group">
               <input id="register-name" v-model="memberRegister.name"
-                     class="form-control" placeholder="Nickname">
+                     class="form-control" placeholder="昵称">
             </div>
             <div class="form-group">
               <input id="register-password" v-model="memberRegister.passwordOriginal"
-                     class="form-control" placeholder="Password" type="password">
+                     class="form-control" placeholder="密码" type="password">
             </div>
             <div class="form-group">
               <input id="register-confirm-password" v-model="memberRegister.confirm"
-                     class="form-control" placeholder="Confirm Password"
+                     class="form-control" placeholder="确认密码"
                      name="memberRegisterConfirm" type="password">
             </div>
             <div class="form-group">
               <button class="btn btn-primary btn-block submit-button" v-on:click="register()">
-                Register
+                注&nbsp;&nbsp;册
               </button>
             </div>
             <div class="form-group to-login-div">
@@ -113,7 +110,6 @@
             </div>
             <div class="form-group to-login-div">
               <a href="javascript:;" v-on:click="toLoginDiv()">我要登录</a>
-
             </div>
           </div>
         </div>
@@ -124,98 +120,111 @@
 
 <script>
 
-  export default {
-    name: 'the-login',
-    data: function () {
-      return {
-        // 模态框内容切换：登录、注册、忘记密码
-        STATUS_LOGIN: "STATUS_LOGIN",
-        STATUS_REGISTER: "STATUS_REGISTER",
-        STATUS_FORGET: "STATUS_FORGET",
-        MODAL_STATUS: "",
+export default {
+  name: 'the-login',
+  data: function () {
+    return {
+      // 模态框内容切换：登录、注册、忘记密码
+      STATUS_LOGIN: "STATUS_LOGIN",
+      STATUS_REGISTER: "STATUS_REGISTER",
+      STATUS_FORGET: "STATUS_FORGET",
+      MODAL_STATUS: "",
 
-        member: {},
-        memberForget: {},
-        memberRegister: {},
+      member: {},
+      memberForget: {},
+      memberRegister: {},
 
-        rememberMe: true, // 记住密码
-        imageCodeToken: ""
-      }
-    },
-    mounted() {
-      let _this = this;
-      _this.toLoginDiv();
-    },
-    methods: {
-
-      /**
-       * 打开登录注册窗口
-       */
-      openLoginModal() {
-        let _this = this;
-        $("#login-modal").modal("show");
-      },
-
-      //---------------登录框、注册框、忘记密码框切换-----------------
-      toLoginDiv() {
-        let _this = this;
-        _this.MODAL_STATUS = _this.STATUS_LOGIN
-      },
-      toRegisterDiv() {
-        let _this = this;
-        _this.MODAL_STATUS = _this.STATUS_REGISTER
-      },
-      toForgetDiv() {
-        let _this = this;
-        _this.MODAL_STATUS = _this.STATUS_FORGET
-      },
-
-      register() {
-        let _this = this;
-        _this.memberRegister.password = hex_md5(_this.memberRegister.passwordOriginal + KEY);
-
-        // 调服务端注册接口
-        _this.$ajax.post(process.env.VUE_APP_SERVER + '/business/web/member/register', _this.memberRegister).then((response) => {
-          let resp = response.data;
-          if (resp.success) {
-            Toast.success("注册成功");
-          } else {
-            Toast.warning(resp.message);
-          }
-        })
-      },
-
+      remember: true, // 记住密码
+      imageCodeToken: ""
     }
+  },
+  mounted() {
+    let _this = this;
+    _this.toLoginDiv();
+  },
+  methods: {
+
+    /**
+     * 打开登录注册窗口
+     */
+    openLoginModal() {
+      let _this = this;
+      // 显示登录框时就刷新一次验证码图片
+      _this.loadImageCode();
+      $("#login-modal").modal("show");
+    },
+
+    //---------------登录框、注册框、忘记密码框切换-----------------
+    toLoginDiv() {
+      let _this = this;
+      _this.MODAL_STATUS = _this.STATUS_LOGIN
+    },
+    toRegisterDiv() {
+      let _this = this;
+      _this.MODAL_STATUS = _this.STATUS_REGISTER
+    },
+    toForgetDiv() {
+      let _this = this;
+      _this.MODAL_STATUS = _this.STATUS_FORGET
+    },
+
+    register() {
+      let _this = this;
+      _this.memberRegister.password = hex_md5(_this.memberRegister.passwordOriginal + KEY);
+
+      // 调服务端注册接口
+      _this.$ajax.post(process.env.VUE_APP_SERVER + '/business/web/member/register', _this.memberRegister).then((response) => {
+        let resp = response.data;
+        if (resp.success) {
+          Toast.success("注册成功");
+        } else {
+          Toast.warning(resp.message);
+        }
+      })
+    },
+
+
+    //---------------登录框-----------------
+    /**
+     * 加载图形验证码
+     */
+    loadImageCode: function () {
+      let _this = this;
+      _this.imageCodeToken = Tool.uuid(8);
+      $('#image-code').attr('src', process.env.VUE_APP_SERVER + '/business/web/kaptcha/image-code/' + _this.imageCodeToken);
+    },
+
   }
+}
 </script>
 
 <style scoped>
-  /* 登录框 */
-  .login-div .input-group-addon {
-    padding: 0;
-    border: 0;
-  }
+/* 登录框 */
+.login-div .input-group-addon {
+  padding: 0;
+  border: 0;
+}
 
-  #login-modal h3 {
-    text-align: center;
-    margin-bottom: 20px;
-  }
+#login-modal h3 {
+  text-align: center;
+  margin-bottom: 20px;
+}
 
-  #login-modal .modal-login {
-    max-width: 400px;
-  }
+#login-modal .modal-login {
+  max-width: 400px;
+}
 
-  #login-modal input:not(.rememberMe) {
-    height: 45px;
-    font-size: 16px;
-  }
+#login-modal input:not(.remember) {
+  height: 45px;
+  font-size: 16px;
+}
 
-  #login-modal .submit-button {
-    height: 50px;
-    font-size: 20px;
-  }
+#login-modal .submit-button {
+  height: 50px;
+  font-size: 20px;
+}
 
-  #login-modal .to-login-div {
-    text-align: center;
-  }
+#login-modal .to-login-div {
+  text-align: center;
+}
 </style>
