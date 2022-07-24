@@ -18,7 +18,9 @@
               <span class="price-now text-danger"><i class="fa fa-gbp"></i>&nbsp;{{course.price}}&nbsp;&nbsp;</span>
             </p>
             <p class="course-head-button-links">
-              <a class="btn btn-lg btn-primary btn-shadow" href="javascript:;">Start Learning Now!</a>
+              <a v-show="!memberCourse.id" v-on:click="enroll()" class="btn btn-lg btn-primary btn-shadow" href="javascript:;">Start Learning Now!</a>
+              <a v-show="memberCourse.id" href="#" class="btn btn-lg btn-success btn-shadow disabled">You are subscribed!</a>
+
             </p>
           </div>
         </div>
@@ -105,6 +107,7 @@ export default {
       teacher: {},
       chapters: [],
       sections: [],
+      memberCourse: {},
       COURSE_LEVEL: COURSE_LEVEL,
       SECTION_CHARGE: SECTION_CHARGE
     }
@@ -160,7 +163,31 @@ export default {
       } else {
         _this.$refs.modalPlayer.playVod(section.vod);
       }
-    }
+    },
+
+    /**
+     * 报名
+     */
+    enroll() {
+      let _this = this;
+      let loginMember = Tool.getLoginMember();
+      if (Tool.isEmpty(loginMember)) {
+        Toast.warning("请先登录");
+        return;
+      }
+      _this.$ajax.post(process.env.VUE_APP_SERVER + '/business/web/member-course/enroll', {
+        courseId: _this.course.id,
+        memberId: loginMember.id
+      }).then((response)=>{
+        let resp = response.data;
+        if (resp.success) {
+          _this.memberCourse = resp.content;
+          Toast.success("报名成功！");
+        } else {
+          Toast.warning(resp.message);
+        }
+      });
+    },
   }
 }
 </script>

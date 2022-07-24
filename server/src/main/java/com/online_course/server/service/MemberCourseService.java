@@ -10,13 +10,12 @@ import com.online_course.server.dto.PageDto;
 import com.online_course.server.mapper.MemberCourseMapper;
 import com.online_course.server.util.CopyUtil;
 import com.online_course.server.util.UuidUtil;
-
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
 import javax.annotation.Resource;
-
+import java.util.Date;
 import java.util.List;
-        import java.util.Date;
 @Service
 public class MemberCourseService {
 
@@ -50,8 +49,9 @@ public class MemberCourseService {
      */
     private void insert(MemberCourse memberCourse) {
 
-                Date now = new Date();
+        Date now = new Date();
         memberCourse.setId(UuidUtil.getShortUuid());
+        memberCourse.setAt(now);
         memberCourseMapper.insert(memberCourse);
     }
     /**
@@ -65,5 +65,37 @@ public class MemberCourseService {
      */
     public void delete(String id) {
         memberCourseMapper.deleteByPrimaryKey(id);
+    }
+    /**
+     * 报名，先判断是否已报名
+     * @param memberCourseDto
+     */
+    public MemberCourseDto enroll(MemberCourseDto memberCourseDto) {
+        MemberCourse memberCourseDb = this.select(memberCourseDto.getMemberId(), memberCourseDto.getCourseId());
+        if (memberCourseDb == null) {
+            MemberCourse memberCourse = CopyUtil.copy(memberCourseDto, MemberCourse.class);
+            this.insert(memberCourse);
+            // 将数据库信息全部返回，包括id, at
+            return CopyUtil.copy(memberCourse, MemberCourseDto.class);
+        } else {
+            // 如果已经报名，则直接返回已报名的信息
+            return CopyUtil.copy(memberCourseDb, MemberCourseDto.class);
+        }
+    }
+
+    /**
+     * 根据memberId和courseId查询记录
+     */
+    public MemberCourse select(String memberId, String courseId) {
+        MemberCourseExample example = new MemberCourseExample();
+        example.createCriteria()
+                .andCourseIdEqualTo(courseId)
+                .andMemberIdEqualTo(memberId);
+        List<MemberCourse> memberCourseList = memberCourseMapper.selectByExample(example);
+        if (CollectionUtils.isEmpty(memberCourseList)) {
+            return null;
+        } else {
+            return memberCourseList.get(0);
+        }
     }
 }
