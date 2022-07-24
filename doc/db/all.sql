@@ -255,6 +255,7 @@ insert into `role_resource` values ('00000005', '00000000', '0102');
 insert into `role_resource` values ('00000006', '00000000', '010201');
 insert into `role_resource` values ('00000007', '00000000', '0103');
 insert into `role_resource` values ('00000008', '00000000', '010301');
+insert into `role_resource` values ('00000009', '00000000', '00');
 
 drop table if exists `role_user`;
 create table `role_user` (
