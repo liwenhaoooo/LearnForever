@@ -53,7 +53,7 @@
                 <input v-on:blur="onRegisterMobileCodeBlur()"
                        v-bind:class="registerMobileCodeValidateClass"
                        id="register-mobile-code" class="form-control"
-                       placeholder="手机验证码" v-model="memberRegister.code">
+                       placeholder="手机验证码" v-model="memberRegister.smsCode">
                 <div class="input-group-append">
                   <button class="btn btn-outline-secondary" id="register-send-code-btn"
                           v-on:click="sendSmsForRegister()">发送验证码
@@ -102,7 +102,7 @@
             <div class="form-group">
               <div class="input-group">
                 <input id="forget-mobile-code" class="form-control"
-                       placeholder="手机验证码" v-model="memberForget.code">
+                       placeholder="手机验证码" v-model="memberRegister.smsCode">
                 <div class="input-group-append">
                   <button class="btn btn-outline-secondary" id="forget-send-code-btn">
                     发送验证码
@@ -231,19 +231,14 @@ export default {
     },
 
     register() {
+      let _this = this;
       // 提交之前，先校验所有输入框
       // 注意：当有一个文本框校验为false时，其它不校验
-      let _this = this;
-      let validateResult1 = _this.onRegisterMobileBlur();
-      let validateResult2 = _this.onRegisterMobileCodeBlur();
-      let validateResult3 = _this.onRegisterNameBlur();
-      let validateResult4 = _this.onRegisterPasswordBlur();
-      let validateResult5 =  _this.onRegisterConfirmPasswordBlur();
-      let validateResult = validateResult1 &&
-          validateResult2 &&
-          validateResult3 &&
-          validateResult4 &&
-          validateResult5;
+      let validateResult = _this.onRegisterMobileBlur() &&
+          _this.onRegisterMobileCodeBlur() &&
+          _this.onRegisterNameBlur() &&
+          _this.onRegisterPasswordBlur() &&
+          _this.onRegisterConfirmPasswordBlur();
       if (!validateResult) {
         return;
       }
@@ -386,6 +381,7 @@ export default {
       }, 1000);
     },
 
+
     //-------------------------------- 注册框校验 ----------------------------
 
     onRegisterMobileBlur () {
@@ -393,9 +389,10 @@ export default {
       _this.registerMobileValidate = Pattern.validateMobile(_this.memberRegister.mobile);
       return _this.registerMobileValidate;
     },
+
     onRegisterMobileCodeBlur () {
       let _this = this;
-      _this.registerMobileCodeValidate = Pattern.validateMobileCode(_this.memberRegister.code);
+      _this.registerMobileCodeValidate = Pattern.validateMobileCode(_this.memberRegister.smsCode);
       return _this.registerMobileValidate;
     },
 
