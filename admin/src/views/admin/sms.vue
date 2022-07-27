@@ -4,7 +4,7 @@
 
       <button v-on:click="list(1)" class="btn btn-white btn-default btn-round">
         <i class="ace-icon fa fa-refresh"></i>
-        刷新
+        Refresh
       </button>
     </p>
 
@@ -14,11 +14,11 @@
       <thead>
       <tr>
             <th>id</th>
-            <th>手机号</th>
-            <th>验证码</th>
-            <th>用途</th>
-            <th>生成时间</th>
-            <th>用途</th>
+            <th>Phone number</th>
+            <th>Verification Code</th>
+            <th>Uses</th>
+            <th>Generation time</th>
+            <th>Use or not</th>
 
       </tr>
       </thead>

@@ -5,7 +5,7 @@
         <div class="container">
           <div class="row">
             <div class="col-12">
-              <a v-on:click="onClickLevel1('00000000')" id="category-00000000" href="javascript:;" class="cur">全部</a>
+              <a v-on:click="onClickLevel1('00000000')" id="category-00000000" href="javascript:;" class="cur">All</a>
               <a v-for="o in level1" v-on:click="onClickLevel1(o.id)" v-bind:id="'category-' + o.id" href="javascript:;">{{o.name}}</a>
             </div>
           </div>
@@ -16,7 +16,7 @@
       <div class="container">
         <div class="row">
           <div class="col-12">
-            <a v-on:click="onClickLevel2('11111111')" id="category-11111111" href="javascript:;" class="on">不限</a>
+            <a v-on:click="onClickLevel2('11111111')" id="category-11111111" href="javascript:;" class="on">Unrestricted</a>
             <a v-for="o in level2" v-on:click="onClickLevel2(o.id)" v-bind:id="'category-' + o.id" href="javascript:;">{{o.name}}</a>
 
             <div style="clear:both"></div>

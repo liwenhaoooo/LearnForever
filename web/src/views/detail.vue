@@ -31,10 +31,10 @@
             <!-- Nav tabs -->
             <ul class="nav nav-tabs">
               <li class="nav-item">
-                <a class="nav-link active" href="#info" data-toggle="tab">课程介绍</a>
+                <a class="nav-link active" href="#info" data-toggle="tab">Course Description</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#chapter" data-toggle="tab">章节目录</a>
+                <a class="nav-link" href="#chapter" data-toggle="tab">Chapter List</a>
               </li>
             </ul>
 
